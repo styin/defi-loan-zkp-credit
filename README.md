@@ -34,6 +34,7 @@ The frontend react app is separate from the backend express app, each having the
 `./public` should contain all the static files, like stylesheets, images etc. (e.g.`./public/images`)
 ##### Backend:
 The codebase uses .dotenv (`/.env`) files for abstracting sensitive information from the source code that is published to GitHub. Don't expose database credentials.
+[!] create a `.env` file under `./src` first before running locally 
 
 `./src/models` should contain the data models and database schemas
 
@@ -49,3 +50,6 @@ The codebase uses .dotenv (`/.env`) files for abstracting sensitive information 
 - npm Intellisense
 - Pretty TypeScript Errors
 - ES7+ React/Redux/React-Native snippets
+
+#### 4. Getting Started
+for starting both the frontend and backend server, use `npm run dev`; servers are configured to run `vite` and `nodemon` respectively as specified in `package.json:scripts`
