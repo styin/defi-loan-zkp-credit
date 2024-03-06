@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import "./App.css";
 import { useState, useEffect } from "react";
-import { formatBalance, formatChainAsNum } from "./utils";
+import { formatBalance, formatChainAsNum } from "../utils";
 import detectEthereumProvider from "@metamask/detect-provider";
 
 const App = () => {
