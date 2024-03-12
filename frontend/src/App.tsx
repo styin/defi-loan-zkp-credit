@@ -4,6 +4,9 @@ import { Routes, Route, Link } from "react-router-dom";
 import detectEthereumProvider from "@metamask/detect-provider";
 
 import Login from "./pages/Login";
+import LoanRequest from "./pages/LoanRequest";
+import PostRequest from "./pages/PostRequest";
+import RequestList from "./pages/RequestList";
 
 import { formatBalance, formatChainAsNum } from "./utils";
 
@@ -114,6 +117,9 @@ const App = () => {
                     <li>
                         <Link to="/login">Login</Link>
                     </li>
+                    <li>
+                        <Link to="/loan-request">Loan Request</Link>
+                    </li>
                 </ul>
             </nav>
 
@@ -147,6 +153,9 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<div>Main Page</div>} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/loan-request" element={<LoanRequest />} />
+                <Route path="/post-request" element={<PostRequest />} />
+                <Route path="/request-list" element={<RequestList />} />
             </Routes>
         </div>
     );
