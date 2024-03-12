@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import "./App.css";
 import { useState, useEffect } from "react";
-import { formatBalance, formatChainAsNum } from "../utils";
+import { Routes, Route, Link } from "react-router-dom";
 import detectEthereumProvider from "@metamask/detect-provider";
+
+import Login from "./pages/Login";
+
+import { formatBalance, formatChainAsNum } from "./utils";
+
+import "./styles/App.css";
 
 const App = () => {
     // destructuring assignment from useState hook to get the state and the function to update the state
@@ -100,6 +105,18 @@ const App = () => {
     // JSX
     return (
         <div className="App">
+
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                </ul>
+            </nav>
+
             {/* conditional rendering */}
             <div>
                 Injected Provider {hasProvider ? "DOES" : "DOES NOT"} Exist
@@ -126,6 +143,11 @@ const App = () => {
                     <strong>Error:</strong> {errorMessage}
                 </div>
             )}
+        
+            <Routes>
+                <Route path="/" element={<div>Main Page</div>} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
         </div>
     );
 };
