@@ -1,0 +1,11 @@
+.custom-card {
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 10px;
+    width: 18rem;
+    margin: 10px;
+}
+
+.card-content {
+    padding: 10px;
+}
