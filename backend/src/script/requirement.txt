@@ -1,0 +1,6 @@
+Installation of Dependencies
+Install the requests library, which is required to run the API tester notebook:
+pip install requests
+
+The ZKCS_Hash.exe serves as a local script for hybrid encryption and zkp operation.
+Run api_tester_V2.ipynb to test API calls to ZKCS_Hash.exe. This demo can be used as a template for similar API calls in web application development.
