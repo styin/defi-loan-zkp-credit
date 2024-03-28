@@ -1,5 +1,6 @@
 import React from "react";
-import CustomCard from './CustomCard';
+import CustomCard from '../components/CustomCard';
+import ScrollableDiv from "../components/ScrollableDiv";
 
 /*
 TODO: get request list from backend
@@ -17,11 +18,11 @@ const RequestList: React.FC = () => {
     return (
         <div>
             <h1>Request List</h1>
-            <div style={{ height: '400px', overflow: 'auto' }}>
+            <ScrollableDiv>
                 {cardData.map((card, index) => (
                     <CustomCard key={index} title={card.title} content={card.content} />
                 ))}
-            </div>
+            </ScrollableDiv>
         </div>
     );
 };
