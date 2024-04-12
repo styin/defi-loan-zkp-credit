@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 /* 
 The AuthGuard component provides a wrapper around the Route components 
@@ -8,7 +8,7 @@ authenticated, the component renders the children prop.
 
 To be used in the router.tsx file.
 */
-import { AuthContext } from '../hooks/AuthContext';
+import { UseMetaMask } from '../hooks/MetaMaskContext';
 
 interface AuthGuardProps {
 	children: React.ReactNode;
@@ -17,10 +17,9 @@ interface AuthGuardProps {
 const AuthGuard: React.FC<AuthGuardProps> = ({
 	children,
 }) => {
+	const { wallet, hasProvider } = UseMetaMask();
 	console.log("AuthGuard Triggered");
-	const {isAuthenticated} = useContext(AuthContext);
-	console.log("isAuthenticated: ", isAuthenticated)
-	return <>{isAuthenticated ? children : <h1>"Login required"</h1>}</>;
+	return <>{(hasProvider && wallet.accounts.length > 0) ? children : <h1>"Login required"</h1>}</>;
 };
   
 export default AuthGuard;

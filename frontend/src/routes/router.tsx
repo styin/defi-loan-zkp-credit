@@ -19,7 +19,9 @@ const RouterConfig: React.FC = () => {
         <BrowserRouter>
             <Routes>
                 {/* Route 1: App */}
-                <Route path="/" element={<MainPage />} />
+                <Route path="/" element={
+                    <MainPage />
+                } />
 
                 {/* Route 2: Dashboard */}
                 <Route path="/dashboard" element={
