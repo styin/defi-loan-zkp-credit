@@ -1,6 +1,6 @@
 import React from 'react';
 import RouterConfig from './routes/router';
-import './styles/App.css'
+import './styles/index.css'
 
 const App: React.FC = () => {
     return (

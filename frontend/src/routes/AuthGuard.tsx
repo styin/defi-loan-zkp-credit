@@ -8,7 +8,7 @@ authenticated, the component renders the children prop.
 
 To be used in the router.tsx file.
 */
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../hooks/AuthContext';
 
 interface AuthGuardProps {
 	children: React.ReactNode;

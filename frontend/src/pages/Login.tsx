@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
 
 // Import the AuthContext for authentication state
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../hooks/AuthContext';
 
 // Import utility functions
 import { formatBalance, formatChainAsNum } from '../utils';
-import NavBar from '../components/NavBar';
+import SideBar from '../components/SideBar';
+import LoginForm from '../components/LoginForm';
 
 const Login: React.FC = () => {
     // The AuthContext provides the setIsAuthenticated state to the Login component.
@@ -111,32 +112,38 @@ const Login: React.FC = () => {
     const disableConnect = Boolean(wallet) && isConnecting;
 
     return (
-        <div className="App">
-            <NavBar />
-            {/* conditional rendering */}
-            <div>
+        <div className='flex flex-row'>
+            <aside>
+                <SideBar />
+            </aside>
+            <div className='font-semibold flex flex-col flex-1 items-center justify-center'>
                 Injected Provider {hasProvider ? "DOES" : "DOES NOT"} Exist
+
+
+
+                {window.ethereum?.isMetaMask && wallet.accounts.length < 1 && (                       
+                    <button disabled={disableConnect} onClick={handleConnect}>
+                        Connect with MetaMask
+                    </button>
+                )}
+
+                {wallet.accounts.length > 0 && (
+                    <>
+                        <div>Wallet Accounts: {wallet.accounts[0]}</div>
+                        <div>Wallet Balance: {wallet.balance}</div>
+                        <div>Hex ChainId: {wallet.chainId}</div>
+                        <div>Numeric ChainId: {formatChainAsNum(wallet.chainId)}</div>
+                    </>
+                )}
+                {error && (
+                    <div onClick={() => setError(false)}>
+                        <strong>Error:</strong> {errorMessage}
+                    </div>
+                )}
             </div>
-
-            {window.ethereum?.isMetaMask && wallet.accounts.length < 1 && (                       
-                <button disabled={disableConnect} onClick={handleConnect}>
-                    Connect with MetaMask
-                </button>
-            )}
-
-            {wallet.accounts.length > 0 && (
-                <>
-                    <div>Wallet Accounts: {wallet.accounts[0]}</div>
-                    <div>Wallet Balance: {wallet.balance}</div>
-                    <div>Hex ChainId: {wallet.chainId}</div>
-                    <div>Numeric ChainId: {formatChainAsNum(wallet.chainId)}</div>
-                </>
-            )}
-            {error && (
-                <div onClick={() => setError(false)}>
-                    <strong>Error:</strong> {errorMessage}
-                </div>
-            )}
+            <div className='flex-1'>
+                <LoginForm />
+            </div>
         </div>
     );
 };
