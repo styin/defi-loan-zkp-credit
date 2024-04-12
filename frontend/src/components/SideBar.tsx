@@ -16,8 +16,8 @@ const SideBar = () => {
           {/* Dashboard Section */}
           <li>
             <a
-              href="dashboard"
-              className="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
+              href="/dashboard"
+              className="block rounded-lg hover:bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
             >
               Dashboard
             </a>
@@ -49,7 +49,7 @@ const SideBar = () => {
               <ul className="mt-2 space-y-1 px-4">
                 <li>
                   <a
-                    href="#"
+                    href="/requests/post"
                     className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                   >
                     Post New Request
@@ -58,7 +58,7 @@ const SideBar = () => {
 
                 <li>
                   <a
-                    href="#"
+                    href="/requests/list"
                     className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                   >
                     Public Requests
@@ -71,7 +71,7 @@ const SideBar = () => {
           {/* Inbox Section */}
           <li>
             <a
-              href="#"
+              href="message"
               className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             >
               Inbox
@@ -81,7 +81,7 @@ const SideBar = () => {
           {/* Notices Section */}
           <li>
             <a
-              href="#"
+              href="placeholder"
               className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             >
               Notices
@@ -122,7 +122,7 @@ const SideBar = () => {
 
                 <li>
                   <a
-                    href="#"
+                    href="placeholder"
                     className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                   >
                     Security
@@ -130,7 +130,7 @@ const SideBar = () => {
                 </li>
 
                 <li>
-                  <form action="#">
+                  <form action="placeholder">
                     <button
                       type="submit"
                       className="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
