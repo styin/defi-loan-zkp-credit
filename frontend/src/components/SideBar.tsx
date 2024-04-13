@@ -1,6 +1,13 @@
 import ZeroLoanLogo from '../assets/icons/zeroloan.png';
+import { UseMetaMask } from '../hooks/MetaMaskContext';
+
+import { formatAddress } from '../utils';
 
 const SideBar = () => {
+
+  const { wallet, hasProvider } =
+  UseMetaMask();
+
   return (
     <div className="w-64 left-0 top-0 h-screen flex flex-col justify-between border-e bg-white">
       <div className="sticky px-4 py-6 gap-6 top-0">
@@ -144,27 +151,28 @@ const SideBar = () => {
           </li>
         </ul>
       </div>
+        
+      {/* Bottom part of the Sidebar */}
+      {hasProvider && wallet.accounts.length > 0 && (
+        <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
+          <a
+            href={`https://etherscan.io/address/${wallet.accounts[0]}`}
+            target="_blank"
+            className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50"
+          >
+            <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+              <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            </div>
+            <div>
+              <p className="text-xs">
+                <strong className="block font-medium">MetaMask Wallet</strong>
 
-      <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
-        <a
-          href="#"
-          className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50"
-        >
-          <img
-            alt=""
-            src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            className="size-10 rounded-full object-cover"
-          />
-
-          <div>
-            <p className="text-xs">
-              <strong className="block font-medium">Eric Frusciante</strong>
-
-              <span> eric@frusciante.com </span>
-            </p>
-          </div>
-        </a>
-      </div>
+                <span> {formatAddress(wallet.accounts[0])} </span>
+              </p>
+            </div>
+          </a>
+        </div>
+      )}
     </div>
   );
 };
