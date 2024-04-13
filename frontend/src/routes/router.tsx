@@ -8,12 +8,12 @@ import AuthGuard from './AuthGuard';
 import RequestList from '../pages/RequestList';
 import Login from '../pages/Login';
 import MainPage from '../pages/MainPage';
-import RequestForm from '../pages/RequestForm';
 import LoanRequest from '../pages/LoanRequest';
 import Message from '../pages/Message';
 import SendMessage from '../pages/SendMessage';
 import FetchMessage from '../pages/FetchMessage';
 import Placeholder from '../pages/Placeholder';
+import PostRequest from '../pages/PostRequest';
 
 const RouterConfig: React.FC = () => {
     return (
@@ -41,7 +41,7 @@ const RouterConfig: React.FC = () => {
 
                     {/* Pseudo-Subroute 2.1: Post Request */}
                     <Route path="/requests/post" element={
-                        <AuthGuard> <RequestForm /> </AuthGuard>
+                        <AuthGuard> <PostRequest /> </AuthGuard>
                     }/>
 
                     {/* Pseudo-Subroute 2.2: Request List */}
