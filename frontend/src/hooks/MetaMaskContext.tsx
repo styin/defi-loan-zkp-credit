@@ -65,7 +65,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
             await window.ethereum.request({
                 method: "eth_getBalance",
                 params: [accounts[0], "latest"],
-            }).then(console.log("balance retrieved"))
+            })
         );
         console.log("wallet: ", wallet);
         // retrieve the chainId

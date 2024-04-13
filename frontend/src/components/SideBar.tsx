@@ -17,7 +17,7 @@ const SideBar = () => {
           <li>
             <a
               href="/dashboard"
-              className="block rounded-lg hover:bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
+              className="block rounded-lg hover:bg-gray-100 hover:text-gray-700 px-4 py-2 text-sm font-medium text-gray-500"
             >
               Dashboard
             </a>
