@@ -67,7 +67,7 @@ const RequestForm: React.FC = () => {
           </label>
           <label className="formlabel">
             <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              amount
+              amount (this is what you will need to return)
             </span>
             <input
               className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"

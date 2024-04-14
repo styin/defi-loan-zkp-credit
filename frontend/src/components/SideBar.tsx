@@ -1,25 +1,22 @@
-import ZeroLoanLogo from '../assets/icons/zeroloan.png';
-import { UseMetaMask } from '../hooks/MetaMaskContext';
+import ZeroLoanLogo from "../assets/icons/zeroloan.png";
+import { UseMetaMask } from "../hooks/MetaMaskContext";
 
-import { formatAddress } from '../utils';
+import { formatAddress } from "../utils";
 
 const SideBar = () => {
-
-  const { wallet, hasProvider } =
-  UseMetaMask();
+  const { wallet, hasProvider } = UseMetaMask();
 
   return (
     <div className="w-64 left-0 top-0 h-screen flex flex-col justify-between border-e bg-white">
       <div className="sticky px-4 py-6 gap-6 top-0">
         {/* Top part of the Sidebar */}
         <div className="flex items-center justify-center gap-4">
-            <img src={ZeroLoanLogo} alt="" className="w-10 h-10" />
-            <span className="font-GoogleSans font-bold">ZeroLoan</span>
+          <img src={ZeroLoanLogo} alt="" className="w-10 h-10" />
+          <span className="font-GoogleSans font-bold">ZeroLoan</span>
         </div>
 
         {/* Navigation */}
         <ul className="space-y-1 font-GoogleSans mt-6">
-          
           {/* Dashboard Section */}
           <li>
             <a
@@ -51,8 +48,7 @@ const SideBar = () => {
                   </svg>
                 </span>
               </summary>
-              
-              
+
               <ul className="mt-2 space-y-1 px-4">
                 <li>
                   <a
@@ -151,7 +147,7 @@ const SideBar = () => {
           </li>
         </ul>
       </div>
-        
+
       {/* Bottom part of the Sidebar */}
       {hasProvider && wallet.accounts.length > 0 && (
         <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
@@ -161,7 +157,18 @@ const SideBar = () => {
             className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50"
           >
             <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-              <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+              <svg
+                className="absolute w-12 h-12 text-gray-400 -left-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
             </div>
             <div>
               <p className="text-xs">
