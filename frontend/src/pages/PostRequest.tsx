@@ -1,11 +1,18 @@
 import React from "react";
-import RequestForm from "./RequestForm";
+import RequestForm from "../components/RequestForm";
+import SideBar from "../components/SideBar";
 
 const PostRequest: React.FC = () => {
     return (
-        <div>
-            <h1>Post Request</h1>
-            <RequestForm />
+        <div className="flex flex-row">
+            <aside>
+                <SideBar />
+            </aside>
+            <section className="flex-1 bg-gray-50">
+                <div className="mt-10 justify-center items-center">
+                    <RequestForm />
+                </div>
+            </section>
         </div>
     );
 };

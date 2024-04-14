@@ -6,10 +6,10 @@ const Message: React.FC = () => {
         <div>
             <h1>Message Page</h1>
             {/*loan request's homepage*/}
-            <Link to="send-message">
+            <Link to="send">
                 <button>Send Messages</button>
             </Link>
-            <Link to="fetch-message">
+            <Link to="fetch">
                 <button>Fetch Messages</button>
             </Link>
         </div>
