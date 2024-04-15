@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "../styles/RequestForm.css";
+import { UseMetaMask } from "../hooks/MetaMaskContext"; 
 
 const RequestForm: React.FC = () => {
+  // Access the wallet address
+  const { wallet } = UseMetaMask();
+
   const [formData, setFormData] = useState({
-    publicKey: "",
     amount: "",
-    highestRate: "",
+    discountedAmount: "",
     duration: "",
-    additionalInfo: "",
+    additionalNotes: "",
   });
 
   const handleChange = (
@@ -22,24 +25,42 @@ const RequestForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (
-      formData.publicKey.trim() === "" ||
       formData.amount.trim() === "" ||
-      formData.highestRate.trim() === "" ||
-      formData.duration.trim() === "" ||
-      formData.additionalInfo.trim() === ""
+      formData.discountedAmount.trim() === "" ||
+      formData.duration.trim() === ""
+      // additional notes can be empty
     ) {
-      window.alert("Please fill in all the fields");
+      window.alert("Please fill in all the fields (except additional notes)");
       return;
     }
-    console.log(formData);
-    window.alert("Form submitted successfully!");
-    setFormData({
-      publicKey: "",
-      amount: "",
-      highestRate: "",
-      duration: "",
-      additionalInfo: "",
-    });
+    
+    const walletAddress = wallet.accounts[0]; // Assuming the first account is the active one
+    fetch('http://localhost:5000/api/post_request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({walletAddress, ...formData}),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to submit form');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Form submitted successfully! Response:', data);
+            window.alert('Form submitted successfully!');
+            setFormData({
+              amount: "",
+              discountedAmount: "",
+              duration: "",
+              additionalNotes: "",
+            });
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+        });
   };
 
   return (
@@ -55,18 +76,6 @@ const RequestForm: React.FC = () => {
         <div className="flex flex-col gap-6 md:p-4">
           <label className="formlabel">
             <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              message public key
-            </span>
-            <input
-              className="formInput block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
-              type="text"
-              name="publicKey"
-              value={formData.publicKey}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="formlabel">
-            <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
               amount (this is what you will need to return)
             </span>
             <input
@@ -79,19 +88,19 @@ const RequestForm: React.FC = () => {
           </label>
           <label className="formlabel">
             <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              maximum rate
+              discounted amount (this is what you will receive)
             </span>
             <input
               className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
               type="text"
-              name="highestRate"
-              value={formData.highestRate}
+              name="discountedAmount"
+              value={formData.discountedAmount}
               onChange={handleChange}
             />
           </label>
           <label className="formlabel">
             <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              duration
+              duration (you will repay in __ days)
             </span>
             <input
               className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
@@ -103,12 +112,12 @@ const RequestForm: React.FC = () => {
           </label>
           <label className="formlabel">
             <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              additional notes
+              additional notes (Optional)
             </span>
             <textarea
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              name="additionalInfo"
-              value={formData.additionalInfo}
+              name="additionalNotes"
+              value={formData.additionalNotes}
               onChange={handleChange}
             />
           </label>
