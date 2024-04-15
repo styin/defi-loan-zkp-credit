@@ -1,0 +1,22 @@
+.formContainer {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.formLabel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.formLabel span {
+    text-align: left;
+}
+
+.formInput {
+    text-align: left;
+}
