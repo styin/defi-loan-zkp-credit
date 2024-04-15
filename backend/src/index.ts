@@ -25,42 +25,35 @@ app.use((req, res, next) => {
     next();
 });
 
-// TODO [Seb] This is a dummy route for the loan request. It is not complete and will be updated later.
-app.post("/api/loan_req", async (req, res) => {
-    // liaison
-    res.send("The loan request has been received!");
-    console.log("[loan_req] Loan request received: ", req.body);
-    // dummy loan request
-    const loanRequest = new LoanRequest(
-        {
-            amount: 1000,
-            interest_rate: 0.05,
-            loan_duration: 12,
-            status: "pending",
-            lender_address: "0x123",
-            borrower_address: "0x456"
-        }
-    );
+app.post("/api/post_request", async (req, res) => {
+    const { walletAddress, amount, discountedAmount, duration, additionalNotes } = req.body;
+    // create a new loan request
+    const loanRequest = new LoanRequest({
+            walletAddress,
+            amount,
+            discountedAmount,
+            duration,
+            additionalNotes
+    });
     // save the loan request to the database
     await loanRequest.save()
-        .then((result) => {
-            console.log("[loan_req] Loan request saved: ", result);
+        .then(() => {
+            res.status(201).json({ message: 'Loan request saved successfully' });
         })
-        .catch((err) => {
-            console.log("[ERROR] Error saving loan request: ", err);
+        .catch((error) => {
+            res.status(500).json({ error: 'Failed to save loan request' });
         });
 });
 
 app.post('/api/send_message', async (req, res) => {
-    const { senderPK, receiverPK, encryptedMessage, signature } = req.body;
-  
+    const { senderPK, receiverPK, encryptionPackage } = req.body;
+    // create a new message
     const newMessage = new EncryptedMessage({
       senderPK,
       receiverPK,
-      encryptedMessage,
-      signature
-    })
-  
+      encryptionPackage
+    });
+    // save the message to the database
     await newMessage.save()
       .then(() => {
         res.status(201).json({ message: 'Message saved successfully' });

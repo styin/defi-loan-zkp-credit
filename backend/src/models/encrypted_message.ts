@@ -3,8 +3,7 @@ import mongoose from "mongoose";
 const EncryptedMessageSchema = new mongoose.Schema({
     senderPK: String,
     receiverPK: String,
-    encryptedMessage: String,
-    signature: String,
+    encryptionPackage: String
 });
 
 // Tentative to change

@@ -5,8 +5,7 @@ const MessageForm: React.FC = () => {
     const [formData, setFormData] = useState({
         senderPK: '',
         receiverPK: '',
-        encryptedMessage: '',
-        signature: '',
+        encryptionPackage: '',
     });
 
   const handleChange = (
@@ -23,8 +22,7 @@ const MessageForm: React.FC = () => {
     if (
       formData.senderPK.trim() === "" ||
       formData.receiverPK.trim() === "" ||
-      formData.encryptedMessage.trim() === "" ||
-      formData.signature.trim() === "" 
+      formData.encryptionPackage === "" 
     ) {
       window.alert("Please fill in all the fields");
       return;
@@ -50,8 +48,7 @@ const MessageForm: React.FC = () => {
             setFormData({
                 senderPK: '',
                 receiverPK: '',
-                encryptedMessage: '',
-                signature: '',
+                encryptionPackage: '',
             });
         })
         .catch(error => {
@@ -96,25 +93,13 @@ const MessageForm: React.FC = () => {
           </label>
           <label className="formlabel">
             <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              encrypted message
+              encryptionPackage
             </span>
             <input
               className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
               type="text"
-              name="encryptedMessage"
-              value={formData.encryptedMessage}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="formlabel">
-            <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              your signature on the hashed encrypted message 
-            </span>
-            <input
-              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
-              type="text"
-              name="signature"
-              value={formData.signature}
+              name="encryptionPackage"
+              value={formData.encryptionPackage}
               onChange={handleChange}
             />
           </label>
