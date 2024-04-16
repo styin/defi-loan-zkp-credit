@@ -12,6 +12,7 @@ import os
 import sys
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 CORS(app, origins='http://localhost:5173')
 
@@ -19,6 +20,26 @@ CORS(app, origins='http://localhost:5173')
 # Hardcoded values for p and g
 p = 8027543306822782091516025281137505380127630417154748539650504757242758509501850148018242675587643872983476700763087709478487511802404983390045147982417703
 g = 5
+
+def serialize_and_encode(data_dict):
+    """Convert a dictionary into a hex string suitable for blockchain storage."""
+    # Serialize dictionary to JSON string
+    json_str = json.dumps(data_dict)
+    # Encode JSON string to bytes
+    json_bytes = json_str.encode('utf-8')
+    # Convert bytes to hex
+    hex_str = binascii.hexlify(json_bytes).decode('utf-8')
+    return hex_str
+
+def decode_and_deserialize(hex_str):
+    """Convert a hex string from blockchain back into a dictionary."""
+    # Convert hex back to bytes
+    json_bytes = binascii.unhexlify(hex_str)
+    # Decode bytes to JSON string
+    json_str = json_bytes.decode('utf-8')
+    # Deserialize JSON string to dictionary
+    data_dict = json.loads(json_str)
+    return data_dict
 
 def generate_keys(pair_name):
     # Generate a new private/public key pair
@@ -213,8 +234,8 @@ def encrypt():
             'encrypted_message': encrypted_message,
             'signature': signature
         }
-
-        return jsonify(package)
+        hex_str_for_storage = '0x'+ serialize_and_encode(package)
+        return jsonify(hex_str_for_storage)
     except FileNotFoundError:
         error_message = f"Key files not found."
         return jsonify({'error': 'Encryption failed', 'message': error_message}), 400
@@ -225,7 +246,7 @@ def encrypt():
 @app.route('/decrypt', methods=['POST'])
 def decrypt():
     data = request.json
-    package = data['package']
+    package = decode_and_deserialize(data['package'][2:])
     receiver_pair_name = data['receiver_pair_name']
     sender_pair_name = data['sender_pair_name']
 
