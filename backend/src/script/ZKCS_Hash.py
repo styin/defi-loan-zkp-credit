@@ -111,8 +111,14 @@ def generate_signature(private_key_file, message):
             backend=default_backend()
         )
 
+    # Create a digest of the message
+    digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
+    digest.update(message)
+    message_hash = digest.finalize()
+
+    # Sign the message hash
     signature = private_key.sign(
-        message,
+        message_hash,
         padding.PSS(
             mgf=padding.MGF1(hashes.SHA256()),
             salt_length=padding.PSS.MAX_LENGTH
@@ -129,11 +135,19 @@ def verify_signature(public_key_file, message, signature):
             backend=default_backend()
         )
 
+    # Calculate the hash of the message
+    digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
+    digest.update(message)
+    message_hash = digest.finalize()
+
+    # Convert the signature from hexadecimal
     signature_bytes = binascii.unhexlify(signature)
+
+    # Verify the signature
     try:
         public_key.verify(
             signature_bytes,
-            message,
+            message_hash,
             padding.PSS(
                 mgf=padding.MGF1(hashes.SHA256()),
                 salt_length=padding.PSS.MAX_LENGTH
@@ -141,7 +155,7 @@ def verify_signature(public_key_file, message, signature):
             hashes.SHA256()
         )
         return True
-    except:
+    except Exception as e:
         return False
 
 
