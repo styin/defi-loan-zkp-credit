@@ -5,7 +5,7 @@ import mongoose, { mongo } from "mongoose";
 import { config } from "dotenv";
 config();
 const mongoURI = process.env.MONGO_URI || "";
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // model imports
 import LoanRequest from "./models/loan_request";
