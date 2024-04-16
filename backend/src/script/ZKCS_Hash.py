@@ -13,7 +13,7 @@ import sys
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins='http://localhost:5173')
 
 
 # Hardcoded values for p and g
