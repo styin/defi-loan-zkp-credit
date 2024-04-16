@@ -10,8 +10,10 @@ from cryptography.hazmat.primitives import serialization, hashes
 import binascii
 import os
 import sys
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Hardcoded values for p and g
