@@ -10,8 +10,12 @@ from cryptography.hazmat.primitives import serialization, hashes
 import binascii
 import os
 import sys
-
 from flask_cors import CORS
+
+
+app = Flask(__name__)
+CORS(app, origins='http://localhost:5173')
+
 
 app = Flask(__name__)
 CORS(app)
