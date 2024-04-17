@@ -344,7 +344,7 @@ def prover():
 @app.route('/verifier', methods=['POST'])
 def verifier():
     try:
-        proof = request.json['proof']
+        proof = json.loads(request.json['proof'])
         Y = request.json['Y_selected']
         
         # Recalculate the challenge hash e'
