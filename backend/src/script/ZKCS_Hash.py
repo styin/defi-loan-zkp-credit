@@ -16,10 +16,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, origins='http://localhost:5173')
 
-
-app = Flask(__name__)
-CORS(app)
-
 # Hardcoded values for p and g
 p = 8027543306822782091516025281137505380127630417154748539650504757242758509501850148018242675587643872983476700763087709478487511802404983390045147982417703
 g = 5
@@ -344,7 +340,7 @@ def prover():
 @app.route('/verifier', methods=['POST'])
 def verifier():
     try:
-        proof = request.json['proof']
+        proof = json.loads(request.json['proof'])
         Y = request.json['Y_selected']
         
         # Recalculate the challenge hash e'
