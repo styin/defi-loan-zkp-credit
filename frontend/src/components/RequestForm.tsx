@@ -30,7 +30,7 @@ const RequestForm: React.FC = () => {
       formData.duration.trim() === ""
       // additional notes can be empty
     ) {
-      window.alert("Please fill in all the fields (except additional notes)");
+      window.alert("Please fill in all the required fields!");
       return;
     }
     
