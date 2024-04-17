@@ -25,6 +25,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// Endpoint for creating a new loan request
 app.post("/api/post_request", async (req, res) => {
     const { walletAddress, amount, discountedAmount, duration, additionalNotes } = req.body;
     // create a new loan request
@@ -42,6 +43,18 @@ app.post("/api/post_request", async (req, res) => {
         })
         .catch((error) => {
             res.status(500).json({ error: 'Failed to save loan request' });
+        });
+});
+
+// Endpoint for getting all loan requests
+app.get("/api/get_requests", async (req, res) => {
+    // get all loan requests from the database
+    await LoanRequest.find()
+        .then((requests) => {
+            res.status(200).json({ requests });
+        })
+        .catch((error) => {
+            res.status(500).json({ error: 'Failed to get loan requests' });
         });
 });
 
