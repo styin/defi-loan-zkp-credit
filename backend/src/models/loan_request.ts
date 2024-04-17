@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 const loanRequestSchema = new mongoose.Schema({
     walletAddress: String,
+    rsaPK: String,
+    signedRSAPK: String,
     amount: Number,
     discountedAmount: Number,
     duration: Number, // days

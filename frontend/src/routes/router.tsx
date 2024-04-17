@@ -14,6 +14,7 @@ import SendMessage from '../pages/SendMessage';
 import FetchMessage from '../pages/FetchMessage';
 import Placeholder from '../pages/Placeholder';
 import PostRequest from '../pages/PostRequest';
+import Encryption from '../pages/Encryption';
 
 const RouterConfig: React.FC = () => {
     return (
@@ -64,7 +65,12 @@ const RouterConfig: React.FC = () => {
                         <AuthGuard> <FetchMessage /> </AuthGuard>
                     }/>
 
-                {/* Route 4: Login */}
+                {/* Route 4: Encryption */}
+                <Route path="/encryption" element={
+                    <AuthGuard> <Encryption /> </AuthGuard>
+                }/>
+
+                {/* Route 5: Login */}
                 <Route path="/login" element={
                     <Login />
                 }/>

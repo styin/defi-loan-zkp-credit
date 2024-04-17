@@ -19,6 +19,9 @@ contract LoanCommitmentContract {
     // Mapping to store the ordered list of lenders for each borrower
     mapping(address => address[]) private borrowerToLenders;
 
+    // Mapping to store all commitment identifiers for each borrower
+    mapping(address => bytes32[]) private borrowerCommitmentIdentifiers;
+
     // Counter to help generate unique identifiers
     uint256 private nonce;
 
@@ -55,6 +58,9 @@ contract LoanCommitmentContract {
 
         emit CommitmentCreated(msg.sender, lender, yi, identifier);
 
+
+        borrowerCommitmentIdentifiers[msg.sender].push(identifier);
+
         // Return the identifier for the caller to know
         return identifier;
     }
@@ -75,17 +81,21 @@ contract LoanCommitmentContract {
         emit CommitmentConfirmed(commitment.borrower, msg.sender, commitment.yi, identifier);
     }
 
-    // Get all yi values for a specific borrower-lender pair
-    function getYiValuesByBorrowerAndLender(address borrower, address lender) public view returns (uint256[] memory) {
-        bytes32[] storage identifiers = commitmentIdentifiers[borrower][lender];
-        uint256[] memory yiValues = new uint256[](identifiers.length);
+    function getYiValuesByBorrowerAndIndices(address borrower, uint256[] memory indices) public view returns (uint256[] memory) {
+            require(indices.length > 0, "Indices array cannot be empty");
 
-        for (uint256 i = 0; i < identifiers.length; i++) {
-            Commitment storage commitment = commitments[identifiers[i]];
-            yiValues[i] = commitment.yi;
-        }
+            bytes32[] memory identifiers = borrowerCommitmentIdentifiers[borrower];
+            uint256[] memory yiValues = new uint256[](indices.length);
 
-        return yiValues;
+            for (uint256 i = 0; i < indices.length; i++) {
+                uint256 index = indices[i];
+                require(index < identifiers.length, "Invalid index");
+
+                Commitment storage commitment = commitments[identifiers[index]];
+                yiValues[i] = commitment.yi;
+            }
+
+            return yiValues;
     }
 
     // Retrieve an ordered list of lenders for a given borrower
