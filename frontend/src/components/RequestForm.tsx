@@ -35,7 +35,7 @@ const RequestForm: React.FC = () => {
     }
 
     const walletAddress = wallet.accounts[0]; // Assuming the first account is the active one
-    fetch('http://localhost:5000/api/post_request', {
+    fetch("http://localhost:3000/api/post_request", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -85,6 +85,7 @@ const RequestForm: React.FC = () => {
               value={formData.amount}
               onChange={handleChange}
               placeholder="e.g. ETH10.00 - this is the amount you will need to repay"
+              required={true}
             />
           </label>
           <label className="formlabel">
@@ -98,6 +99,7 @@ const RequestForm: React.FC = () => {
               value={formData.discountedAmount}
               onChange={handleChange}
               placeholder="e.g. ETH9.50 - this is the amount you will receive"
+              required={true}
             />
           </label>
           <label className="formlabel">
@@ -111,6 +113,7 @@ const RequestForm: React.FC = () => {
               value={formData.duration}
               onChange={handleChange}
               placeholder="e.g. 30 - this is the amount of days until your repayment is due"
+              required={true}
             />
           </label>
           <label className="formlabel">
