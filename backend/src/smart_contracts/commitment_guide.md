@@ -18,8 +18,8 @@ The `LoanCommitmentContract` on Ethereum allows for the creation and confirmatio
 - **getYiValuesByBorrowerAndLender(borrower, lender)**
   - **Arguments**:
     - `address borrower`: Borrower's Ethereum address.
-    - `address lender`: Lender's Ethereum address.
-  - **Returns**: Array of loan amounts (`uint256[]`) associated with the borrower-lender pair.
+    - `uint256[]`: Interested indices
+  - **Returns**: Array of encrypted loan amounts (`uint256[]`) associated with the borrower-lender pair.
 
 - **getLendersByBorrower(borrower)**
   - **Arguments**:
@@ -30,19 +30,3 @@ The `LoanCommitmentContract` on Ethereum allows for the creation and confirmatio
 
 - `CommitmentCreated(borrower, lender, yi, identifier)`
 - `CommitmentConfirmed(borrower, lender, yi, identifier)`
-
-## Usage
-
-```javascript
-// Create a commitment
-let commitmentId = await contract.createCommitment(lenderAddress, loanAmount);
-
-// Confirm a commitment
-await contract.confirmCommitment(commitmentId);
-
-// Retrieve loan values for a borrower-lender pair
-let loanYi = await contract.getYiValuesByBorrowerAndLender(borrowerAddress, lenderAddress);
-
-// Get lenders for a borrower
-let lendersList = await contract.getLendersByBorrower(borrowerAddress);
-```
