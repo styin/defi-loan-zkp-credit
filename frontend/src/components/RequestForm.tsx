@@ -66,7 +66,7 @@ const RequestForm: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:hscreen lg:py-0">
       {/* Top of the form */}
-      <a className="font-GoogleSans font-bold flex items-center mb-6 text-2xl text-gray-900">
+      <a className="font-bold flex items-center mb-6 text-2xl text-gray-900">
         New request
       </a>
       <form
@@ -75,50 +75,54 @@ const RequestForm: React.FC = () => {
       >
         <div className="flex flex-col gap-6 md:p-4">
           <label className="formlabel">
-            <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              amount (this is what you will need to return)
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> Loan amount
             </span>
             <input
-              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
               name="amount"
               value={formData.amount}
               onChange={handleChange}
+              placeholder="e.g. ETH10.00 - this is the amount you will need to repay"
             />
           </label>
           <label className="formlabel">
-            <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              discounted amount (this is what you will receive)
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+            <a className="text-red-600"> * </a> Minimum discounted amount
             </span>
             <input
-              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
               name="discountedAmount"
               value={formData.discountedAmount}
               onChange={handleChange}
+              placeholder="e.g. ETH9.50 - this is the amount you will receive"
             />
           </label>
           <label className="formlabel">
-            <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              duration (you will repay in __ days)
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+            <a className="text-red-600"> * </a> Loan duration (in days)
             </span>
             <input
-              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
               name="duration"
               value={formData.duration}
               onChange={handleChange}
+              placeholder="e.g. 30 - this is the amount of days until your repayment is due"
             />
           </label>
           <label className="formlabel">
-            <span className="font-semibold block mb-1 text-sm text-orange-600 dark:text-white">
-              additional notes (Optional)
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              Additional notes
             </span>
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block p-2.5 w-full text-xs text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
               name="additionalNotes"
               value={formData.additionalNotes}
               onChange={handleChange}
+              placeholder="write down anything you'd like~"
             />
           </label>
           <button
