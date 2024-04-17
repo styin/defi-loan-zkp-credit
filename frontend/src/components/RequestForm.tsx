@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/RequestForm.css";
-import { UseMetaMask } from "../hooks/MetaMaskContext"; 
+import { UseMetaMask } from "../hooks/MetaMaskContext";
 
 const RequestForm: React.FC = () => {
   // Access the wallet address
@@ -33,7 +33,7 @@ const RequestForm: React.FC = () => {
       window.alert("Please fill in all the required fields!");
       return;
     }
-    
+
     const walletAddress = wallet.accounts[0]; // Assuming the first account is the active one
     fetch('http://localhost:5000/api/post_request', {
             method: 'POST',

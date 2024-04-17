@@ -22,7 +22,7 @@ const MessageForm: React.FC = () => {
     if (
       formData.senderPK.trim() === "" ||
       formData.receiverPK.trim() === "" ||
-      formData.encryptionPackage === "" 
+      formData.encryptionPackage === ""
     ) {
       window.alert("Please fill in all the fields");
       return;
@@ -34,7 +34,7 @@ const MessageForm: React.FC = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
-            
+
         })
         .then(response => {
             if (!response.ok) {
