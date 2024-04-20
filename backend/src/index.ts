@@ -30,9 +30,11 @@ app.use((req, res, next) => {
  * @param res - The response object.
  */
 app.post("/api/post_request", async (req, res) => {
-  const { walletAddress, amount, discountedAmount, duration, additionalNotes } = req.body;
+  const { rsaPK, signedRSAPK, walletAddress, amount, discountedAmount, duration, additionalNotes } = req.body;
   // create a new loan request
   const loanRequest = new LoanRequest({
+      rsaPK,
+      signedRSAPK,
       walletAddress,
       amount,
       discountedAmount,
