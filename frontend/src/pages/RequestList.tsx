@@ -1,30 +1,44 @@
-import React from "react";
-import CustomCard from '../components/CustomCard';
+import React, { useEffect, useState }  from "react";
+//import CustomCard from '../components/CustomCard';
+import LoanRequestCard from "../components/LoanRequestCard";
 import ScrollableDiv from "../components/ScrollableDiv";
+import backendURL from "../backendURL";
+import LoanRequestInterface from "../interfaces/loanRequestInterface";
 
 /*
 TODO: get request list from backend
 cardData is currently hardcoded for testing
 */
-const cardData = [
-    { title: 'Card 1', content: 'Content for Card 1' },
-    { title: 'Card 2', content: 'Content for Card 2' },
-    { title: 'Card 3', content: 'Content for Card 3' },
-    { title: 'Card 4', content: 'Content for Card 4' },
-    { title: 'Card 5', content: 'Content for Card 5' }
-];
 
 const RequestList: React.FC = () => {
-    return (
-        <div>
+    const [messages, setMessages] = useState<LoanRequestInterface[]>([]);
+        
+    useEffect(() => {
+      // fetch data from the backend
+    fetch(backendURL + '/api/get_requests')
+        .then(response => response.json())
+        .then(data => {
+            const loanRequests: LoanRequestInterface[] = data as LoanRequestInterface[];
+            setMessages(loanRequests);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
+      
+        return (
+          <div>
             <h1>Request List</h1>
             <ScrollableDiv>
-                {cardData.map((card, index) => (
-                    <CustomCard key={index} title={card.title} content={card.content} />
-                ))}
-            </ScrollableDiv>
-        </div>
-    );
-};
+                  {messages.map((message, index) => (
+                      <LoanRequestCard key={index} loanRequest={message} />
+                  ))}
+              </ScrollableDiv>
+          </div>
+          );
+      };
 
 export default RequestList;
+
+  
+  
