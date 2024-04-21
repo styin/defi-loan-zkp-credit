@@ -1,13 +1,6 @@
-interface LoanRequest {
-    walletAddress: string,
-    rsaPK: string,
-    signedRSAPK: string,
-    amount: number,
-    discountedAmount: number,
-    duration: number, // days
-    additionalNotes: string
-}
-const LoanRequestCard = ({ loanRequest }: { loanRequest: LoanRequest }) => {
+import LoanRequestInterface from "../interfaces/loanRequestInterface";
+
+const LoanRequestCard = ({ loanRequest }: { loanRequest: LoanRequestInterface }) => {
     return (
         <div className="bg-white rounded-lg shadow-md p-4">
             <div className="text-gray-600">
