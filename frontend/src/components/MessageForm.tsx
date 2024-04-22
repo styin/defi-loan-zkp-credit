@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/MessageForm.css";
+import backendURL from "../backendURL";
 
 const MessageForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ const MessageForm: React.FC = () => {
       return;
     }
     console.log(JSON.stringify(formData));
-    fetch('http://localhost:5000/api/send_message', {
+    fetch(backendURL + '/api/send_message', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

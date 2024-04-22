@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import "../styles/RequestForm.css";
 import { UseMetaMask } from "../hooks/MetaMaskContext";
+import backendURL from "../backendURL";
 
 const RequestForm: React.FC = () => {
   // Access the wallet address
   const { wallet } = UseMetaMask();
 
   const [formData, setFormData] = useState({
+    rsaPK: "",
+    signedRSAPK: "",
     amount: "",
     discountedAmount: "",
     duration: "",
@@ -25,6 +28,8 @@ const RequestForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (
+      formData.rsaPK.trim() === "" ||
+      formData.signedRSAPK.trim() === "" ||
       formData.amount.trim() === "" ||
       formData.discountedAmount.trim() === "" ||
       formData.duration.trim() === ""
@@ -35,7 +40,7 @@ const RequestForm: React.FC = () => {
     }
 
     const walletAddress = wallet.accounts[0]; // Assuming the first account is the active one
-    fetch("http://localhost:3000/api/post_request", {
+    fetch(backendURL + "/api/post_request", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,6 +57,8 @@ const RequestForm: React.FC = () => {
             console.log('Form submitted successfully! Response:', data);
             window.alert('Form submitted successfully!');
             setFormData({
+              rsaPK: "",
+              signedRSAPK: "",
               amount: "",
               discountedAmount: "",
               duration: "",
@@ -74,6 +81,34 @@ const RequestForm: React.FC = () => {
         className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-xl xl:p-0"
       >
         <div className="flex flex-col gap-6 md:p-4">
+        <label className="formlabel">
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> RSA public key
+            </span>
+            <input
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
+              type="text"
+              name="rsaPK"
+              value={formData.rsaPK}
+              onChange={handleChange}
+              placeholder="e.g. ETH10.00 - this is your RSA public key"
+              required={true}
+            />
+          </label>
+          <label className="formlabel">
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> Signed RSA public key
+            </span>
+            <input
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
+              type="text"
+              name="signedRSAPK"
+              value={formData.signedRSAPK}
+              onChange={handleChange}
+              placeholder="e.g. ETH10.00 - this is your signed RSA public key"
+              required={true}
+            />
+          </label>
           <label className="formlabel">
             <span className="block text-sm font-semibold leading-6 text-gray-600">
               <a className="text-red-600"> * </a> Loan amount

@@ -30,9 +30,11 @@ app.use((req, res, next) => {
  * @param res - The response object.
  */
 app.post("/api/post_request", async (req, res) => {
-  const { walletAddress, amount, discountedAmount, duration, additionalNotes } = req.body;
+  const { rsaPK, signedRSAPK, walletAddress, amount, discountedAmount, duration, additionalNotes } = req.body;
   // create a new loan request
   const loanRequest = new LoanRequest({
+      rsaPK,
+      signedRSAPK,
       walletAddress,
       amount,
       discountedAmount,
@@ -56,13 +58,13 @@ app.post("/api/post_request", async (req, res) => {
  */
 app.get("/api/get_requests", async (req, res) => {
   // get all loan requests from the database
-  await LoanRequest.find()
-    .then((requests) => {
-      res.status(200).json({ requests });
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Failed to get loan requests' });
-    });
+  try {
+    const loanRequests = await LoanRequest.find();
+    res.json(loanRequests);
+  } catch (error) {
+    console.error('Error fetching loan requests:', error);
+    res.status(500).json({ error: 'An error occurred while fetching loan requests' });
+  }
 });
 
 /**
