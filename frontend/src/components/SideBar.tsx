@@ -114,7 +114,7 @@ const SideBar = () => {
               </ul>
             </details>
           </li>
-          
+
           {/* Encryption Section */}
           <li>
             <a
@@ -125,13 +125,13 @@ const SideBar = () => {
             </a>
           </li>
 
-          {/* Notices Section */}
+          {/* Smart Contract Section */}
           <li>
             <a
-              href="/placeholder"
+              href="/contract"
               className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             >
-              Notices
+              Smart Contract
             </a>
           </li>
 

@@ -15,6 +15,7 @@ import FetchMessage from '../pages/FetchMessage';
 import Placeholder from '../pages/Placeholder';
 import PostRequest from '../pages/PostRequest';
 import Encryption from '../pages/Encryption';
+import ScInteraction from '../pages/ScInteraction';
 
 const RouterConfig: React.FC = () => {
     return (
@@ -32,7 +33,7 @@ const RouterConfig: React.FC = () => {
 
                 {/* Route 1: Dashboard */} {/* Placeholder for the Dashboard */}
                 <Route path="/dashboard" element={
-                    <AuthGuard> <Placeholder /> </AuthGuard> 
+                    <AuthGuard> <Placeholder /> </AuthGuard>
                 }/>
 
                 {/* Route 2: Loan Request */}
@@ -70,7 +71,12 @@ const RouterConfig: React.FC = () => {
                     <AuthGuard> <Encryption /> </AuthGuard>
                 }/>
 
-                {/* Route 5: Login */}
+                {/* Route 5: Smart Contract */}
+                <Route path="/contract" element={
+                    <AuthGuard> <ScInteraction /> </AuthGuard>
+                }/>
+
+                {/* Route 6: Login */}
                 <Route path="/login" element={
                     <Login />
                 }/>
