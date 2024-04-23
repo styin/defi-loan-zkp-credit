@@ -115,7 +115,7 @@ const RequestForm: React.FC = () => {
               name="rsaPK"
               value={formData.rsaPK}
               onChange={handleChange}
-              placeholder="e.g. ETH10.00 - this is your RSA public key"
+              placeholder="e.g. XYZxyz123XYZxyz123 - this is your RSA public key"
               required={true}
             />
           </label>
@@ -129,7 +129,7 @@ const RequestForm: React.FC = () => {
               name="signedRSAPK"
               value={formData.signedRSAPK}
               onChange={handleChange}
-              placeholder="e.g. ETH10.00 - this is your signed RSA public key"
+              placeholder="Sign on your public key above by pressing on the `Sign` button"
               required={true}
               readOnly={true}
             />
