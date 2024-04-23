@@ -291,7 +291,7 @@ const ScButtons: React.FC = () => {
             <input
               className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
-              name="borrowerAdress"
+              name="borrowerAddress"
               value={formData.borrowerAddress}
               onChange={handleChange}
               placeholder="e.g 0xAbcdefg1234567 - this is the borrower's wallet address"
@@ -342,7 +342,7 @@ const ScButtons: React.FC = () => {
             <input
               className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
-              name="borrowerAdress"
+              name="borrowerAddress"
               value={formData.borrowerAddress}
               onChange={handleChange}
               placeholder="e.g 0xAbcdefg1234567 - this is the borrower's wallet address"
