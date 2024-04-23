@@ -1,9 +1,7 @@
 import React, { useEffect, useState }  from "react";
-//import CustomCard from '../components/CustomCard';
 import LoanRequestCard from "../components/LoanRequestCard";
-import ScrollableDiv from "../components/ScrollableDiv";
-import backendURL from "../backendURL";
 import LoanRequestInterface from "../interfaces/loanRequestInterface";
+import ScrollableDiv from "../components/ScrollableDiv";
 
 /*
 TODO: get request list from backend
@@ -15,7 +13,7 @@ const RequestList: React.FC = () => {
         
     useEffect(() => {
       // fetch data from the backend
-    fetch(backendURL + '/api/get_requests')
+    fetch(import.meta.env.VITE_BACKEND_HOST + '/api/get_requests')
         .then(response => response.json())
         .then(data => {
             const loanRequests: LoanRequestInterface[] = data as LoanRequestInterface[];
