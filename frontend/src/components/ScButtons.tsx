@@ -172,69 +172,139 @@ const ScButtons: React.FC = () => {
   };
 
   return (
-    <div>
-      <div>
-        <p>Current block number: {blockNumber}</p>
-        <p>
-          Chain ID of Connected Node:{" "}
-          {chainId == 11155111
-            ? chainId + " (ETH Sepolia)"
-            : chainId + " verify selected chain"}
-        </p>
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:hscreen lg:py-0 gap-10">
+      {/* Top of the form */}
+      <a className="font-bold flex items-center mb-6 text-2xl text-gray-900">
+        Smart Contract Interaction
+      </a>
+
+      {/* Display Chain ID and Block Number */}
+      <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-semibold leading-6 text-gray-600">
+              Chain ID:
+            </span>
+            <span className="text-sm font-semibold leading-6 text-gray-900">
+              {chainId == 11155111? chainId + " (Connected to ETH Sepolia)" : chainId}
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-semibold leading-6 text-gray-600">
+              Latest Block Number:
+            </span>
+            <span className="text-sm font-semibold leading-6 text-gray-900">
+              {blockNumber}
+            </span>
+          </div>
+        </div>
       </div>
-      <div>
-        <form onSubmit={handleSubmitCreateCmt}>
+
+      {/* Create Commitment */}
+      <form
+        onSubmit={handleSubmitCreateCmt}
+        className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-xl xl:p-0"
+      >
+        <div className="flex flex-col gap-6 md:p-4">
+          {/* Lender Wallet Address */}
           <label>
-            Lender Address:
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> Lender Wallet Address:
+            </span>
             <input
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
               name="lenderAddress"
               value={formData.lenderAddress}
               onChange={handleChange}
+              placeholder="e.g 0xAbcdefg1234567 - this is the lender's wallet address confirming the commitment"
+              required={true}
             />
           </label>
-          <br />
+          {/* Yi */}
           <label>
-            Yi:
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> Yi:
+            </span>
             <input
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
               name="yi"
               value={formData.yi}
               onChange={handleChange}
+              placeholder="~"
+              required={true}
             />
           </label>
-          <br />
-          <button type="submit">Create Commitment</button>
-        </form>
+          {/* Submit Button */}
+          <button
+            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="submit"
+          >
+            Create Commitment
+          </button>
+        </div>
+      </form>
 
-        <form onSubmit={handleSubmitConfirmCmt}>
+      {/* Confirm Commitment */}
+      <form
+        onSubmit={handleSubmitConfirmCmt}
+        className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-xl xl:p-0"
+      >
+        <div className="flex flex-col gap-6 md:p-4">
+          {/* Identifier */}
           <label>
-            Identifier:
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> Commitment Identifier:
+            </span>
             <input
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
               name="identifier"
               value={formData.identifier}
               onChange={handleChange}
+              placeholder="e.g 0xAbcdefg1234567 - this is the identifier of the commitment"
+              required={true}
             />
           </label>
-          <br />
-          <button type="submit">Confirm Commitment</button>
-        </form>
+          {/* Submit Button */}
+          <button
+            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="submit"
+          >
+            Confirm Commitment
+          </button>
+        </div>
+      </form>
 
-        <form onSubmit={handleSubmitGetYiValues}>
+      {/* Get Yi Values */}
+      <form
+        onSubmit={handleSubmitGetYiValues}
+        className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-xl xl:p-0"
+      >
+        <div className="flex flex-col gap-6 md:p-4">
+          {/* Borrower Wallet Address */}
           <label>
-            Borrower Address:
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> Borrower Wallet Address:
+            </span>
             <input
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
-              name="borrowerAddress"
+              name="borrowerAdress"
               value={formData.borrowerAddress}
               onChange={handleChange}
+              placeholder="e.g 0xAbcdefg1234567 - this is the borrower's wallet address"
+              required={true}
             />
           </label>
-          <br />
+          {/* Interested Indices */}
           <label>
-            Interested Indices (comma-separated):
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> Interested Indices:
+            </span>
             <input
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
               name="interestedIndices"
               value={formData.interestedIndices.join(",")}
@@ -244,26 +314,50 @@ const ScButtons: React.FC = () => {
                   interestedIndices: e.target.value.split(",").map(Number),
                 })
               }
+              placeholder="e.g 0,1,2 - this is the indices of the interested parties"
+              required={true}
             />
           </label>
-          <br />
-          <button type="submit">Get Yi Values</button>
-        </form>
+          {/* Submit Button */}
+          <button
+            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="submit"
+          >
+            Get Yi Values
+          </button>
+        </div>
+      </form>
 
-        <form onSubmit={handleSubmitGetLenders}>
+      {/* Get Lenders */}
+      <form
+        onSubmit={handleSubmitGetLenders}
+        className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-xl xl:p-0"
+      >
+        <div className="flex flex-col gap-6 md:p-4">
+          {/* Borrower Wallet Address */}
           <label>
-            Borrower Address:
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              <a className="text-red-600"> * </a> Borrower Wallet Address:
+            </span>
             <input
+              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
-              name="borrowerAddress"
+              name="borrowerAdress"
               value={formData.borrowerAddress}
               onChange={handleChange}
+              placeholder="e.g 0xAbcdefg1234567 - this is the borrower's wallet address"
+              required={true}
             />
           </label>
-          <br />
-          <button type="submit">Get Lenders</button>
-        </form>
-      </div>
+          {/* Submit Button */}
+          <button
+            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="submit"
+          >
+            Get Lenders
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
