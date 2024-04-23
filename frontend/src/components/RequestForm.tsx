@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../styles/RequestForm.css";
 import { UseMetaMask } from "../hooks/MetaMaskContext";
-import backendURL from "../backendURL";
 
 const RequestForm: React.FC = () => {
   // Access the wallet address
@@ -40,7 +39,7 @@ const RequestForm: React.FC = () => {
     }
 
     const walletAddress = wallet.accounts[0]; // Assuming the first account is the active one
-    fetch(backendURL + "/api/post_request", {
+    fetch(import.meta.env.VITE_BACKEND_HOST + "/api/post_request", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
