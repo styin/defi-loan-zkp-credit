@@ -7,7 +7,13 @@ const FetchMessage: React.FC = () => {
   const [messages, setMessages] = useState<EncryptedMessageInterface[]>([]);
   const handleFetch = () => {
     const public_key = prompt("Input your public key:");
-    fetch(import.meta.env.VITE_BACKEND_HOST + '/api/get_messages?public_key=' + public_key)
+    fetch(import.meta.env.VITE_BACKEND_HOST + '/api/get_messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ public_key }),
+    })  
       .then(response => response.json())
       .then(data => {
           const encryptedMessages: EncryptedMessageInterface[] = data as EncryptedMessageInterface[];
@@ -21,7 +27,7 @@ const FetchMessage: React.FC = () => {
     
       return (
         <div>
-          <h1>Request List</h1>
+          <h1>Messages</h1>
           <button onClick={handleFetch}>Fetch</button>
           <ScrollableDiv>
                 {messages.map((message, index) => (

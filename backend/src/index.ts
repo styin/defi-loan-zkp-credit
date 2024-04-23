@@ -95,18 +95,18 @@ app.post('/api/send_message', async (req, res) => {
  * @param req - The request object.
  * @param res - The response object.
  */
-app.get("/api/get_messages", async (req, res) => {
-  // get all loan requests from the database
+app.post("/api/get_messages", async (req, res) => {
   try {
-    const publicKey = req.query.public_key;
+    const { public_key } = req.body;
     // in the database's EncryptedMessage schema, only get the entries with "receiverPK" equal to the public key
-    const encryptedMessages = await EncryptedMessage.find({ receiverPK: publicKey });
+    const encryptedMessages = await EncryptedMessage.find({ receiverPK: public_key });
     res.json(encryptedMessages);
   } catch (error) {
     console.error('Error fetching encrypted messages:', error);
     res.status(500).json({ error: 'An error occurred while fetching encrypted messages' });
   }
 });
+
 
 // database connection
 const db = mongoose.connect(mongoURI)
