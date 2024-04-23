@@ -3,6 +3,8 @@ import "../styles/RequestForm.css";
 import { UseMetaMask } from "../hooks/MetaMaskContext";
 import backendURL from "../backendURL";
 
+import { Web3 } from "web3";
+
 const RequestForm: React.FC = () => {
   // Access the wallet address
   const { wallet } = UseMetaMask();
@@ -15,6 +17,23 @@ const RequestForm: React.FC = () => {
     duration: "",
     additionalNotes: "",
   });
+
+  const web3 = new Web3(window.ethereum);
+
+  // sign the rsaPK
+  const signRsaPK = async () => {
+    const walletAddress = wallet.accounts[0];
+    const signature = await web3.eth.personal.sign(
+      formData.rsaPK,
+      walletAddress,
+      ""
+    );
+    setFormData({
+      ...formData,
+      signedRSAPK: signature,
+    });
+  }
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -168,6 +187,13 @@ const RequestForm: React.FC = () => {
             type="submit"
           >
             Submit
+          </button>
+          <button
+            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
+            type="button"
+            onClick={signRsaPK}
+          >
+            Sign
           </button>
         </div>
       </form>
