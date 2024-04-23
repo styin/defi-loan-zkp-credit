@@ -22,12 +22,17 @@ const RequestForm: React.FC = () => {
 
   // sign the rsaPK
   const signRsaPK = async () => {
+    // if rsaPK is empty, do nothing
+    if (formData.rsaPK.trim() === "") {
+      window.alert("Enter a valid rsaPK before signing");
+      return;
+    }
     const walletAddress = wallet.accounts[0];
     const signature = await web3.eth.personal.sign(
       formData.rsaPK,
       walletAddress,
       ""
-    );
+    )
     setFormData({
       ...formData,
       signedRSAPK: signature,
@@ -116,16 +121,17 @@ const RequestForm: React.FC = () => {
           </label>
           <label className="formlabel">
             <span className="block text-sm font-semibold leading-6 text-gray-600">
-              <a className="text-red-600"> * </a> Signed RSA public key
+              Signed RSA public key
             </span>
             <input
-              className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
+              className="formInput flex-2 block w-full p-2 text-gray-500 italic border border-gray-300 rounded-lg bg-gray-50 text-xs"
               type="text"
               name="signedRSAPK"
               value={formData.signedRSAPK}
               onChange={handleChange}
               placeholder="e.g. ETH10.00 - this is your signed RSA public key"
               required={true}
+              readOnly={true}
             />
           </label>
           <label className="formlabel">
