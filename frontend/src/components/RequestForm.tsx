@@ -90,10 +90,6 @@ const RequestForm: React.FC = () => {
         .catch(error => {
             console.error('Error submitting form:', error);
         });
-      })
-      .catch((error) => {
-        console.error("Error submitting form:", error);
-      });
   };
 
   return (
