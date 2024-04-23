@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../styles/RequestForm.css";
 import { UseMetaMask } from "../hooks/MetaMaskContext";
-import backendURL from "../backendURL";
 
 import { Web3 } from "web3";
 
@@ -63,29 +62,33 @@ const RequestForm: React.FC = () => {
     }
 
     const walletAddress = wallet.accounts[0]; // Assuming the first account is the active one
-    fetch(backendURL + "/api/post_request", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ walletAddress, ...formData }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to submit form");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Form submitted successfully! Response:", data);
-        window.alert("Form submitted successfully!");
-        setFormData({
-          rsaPK: "",
-          signedRSAPK: "",
-          amount: "",
-          discountedAmount: "",
-          duration: "",
-          additionalNotes: "",
+    fetch(import.meta.env.VITE_BACKEND_HOST + "/api/post_request", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({walletAddress, ...formData}),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to submit form');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Form submitted successfully! Response:', data);
+            window.alert('Form submitted successfully!');
+            setFormData({
+              rsaPK: "",
+              signedRSAPK: "",
+              amount: "",
+              discountedAmount: "",
+              duration: "",
+              additionalNotes: "",
+            });
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
         });
       })
       .catch((error) => {

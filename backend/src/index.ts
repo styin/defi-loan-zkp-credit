@@ -90,6 +90,24 @@ app.post('/api/send_message', async (req, res) => {
     });
 });
 
+/**
+ * Endpoint for getting all encrypted messages sent to specific.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
+app.get("/api/get_messages", async (req, res) => {
+  // get all loan requests from the database
+  try {
+    const publicKey = req.query.public_key;
+    // in the database's EncryptedMessage schema, only get the entries with "receiverPK" equal to the public key
+    const encryptedMessages = await EncryptedMessage.find({ receiverPK: publicKey });
+    res.json(encryptedMessages);
+  } catch (error) {
+    console.error('Error fetching encrypted messages:', error);
+    res.status(500).json({ error: 'An error occurred while fetching encrypted messages' });
+  }
+});
+
 // database connection
 const db = mongoose.connect(mongoURI)
   .then(() => {

@@ -1,37 +1,36 @@
 import React, { useState } from 'react';
-import CustomCard from '../components/CustomCard';
+import EncryptedMessageCard from '../components/EncryptedMessageCard';
+import EncryptedMessageInterface from '../interfaces/encryptedMessageInterface';
 import ScrollableDiv from '../components/ScrollableDiv';
 
-interface EncryptedMessage {
-  sender_pk: string;
-  enc_msg: string;
-}
-
 const FetchMessage: React.FC = () => {
-  const [messages, setMessages] = useState<EncryptedMessage[]>([]);
-
+  const [messages, setMessages] = useState<EncryptedMessageInterface[]>([]);
   const handleFetch = () => {
-    // fetch data from the backend, which get the data by calling smart contract functions
-    // Simulate fetching encrypted messages
-    const fetchedMessages: EncryptedMessage[] = [
-      { sender_pk: 'pk1', enc_msg: 'encrypted message 1' },
-      { sender_pk: 'pk2', enc_msg: 'encrypted message 2' },
-      { sender_pk: 'pk3', enc_msg: 'encrypted message 3' },
-    ];
-    setMessages(fetchedMessages);
+    const public_key = prompt("Input your public key:");
+    fetch(import.meta.env.VITE_BACKEND_HOST + '/api/get_messages?public_key=' + public_key)
+      .then(response => response.json())
+      .then(data => {
+          const encryptedMessages: EncryptedMessageInterface[] = data as EncryptedMessageInterface[];
+          setMessages(encryptedMessages);
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
   };
-
-  return (
-    <div>
-      <h1>Fetch Page</h1>
-      <button onClick={handleFetch}>Fetch</button>
-      <ScrollableDiv>
-            {messages.map((message, index) => (
-                <CustomCard key={index} title={message.sender_pk} content={message.enc_msg} />
-            ))}
-        </ScrollableDiv>
-    </div>
-    );
-};
+      
+    
+      return (
+        <div>
+          <h1>Request List</h1>
+          <button onClick={handleFetch}>Fetch</button>
+          <ScrollableDiv>
+                {messages.map((message, index) => (
+                    <EncryptedMessageCard key={index} encryptedMessage={message} />
+                ))}
+            </ScrollableDiv>
+        </div>
+        );
+    };
 
 export default FetchMessage;
+

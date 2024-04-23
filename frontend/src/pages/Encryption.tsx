@@ -1,13 +1,13 @@
 import React from "react";
 import SideBar from "../components/SideBar";
-import backendURL from "../backendURL";
 
 const Encryption: React.FC = () => {
+    const pythonBackendURL = import.meta.env.VITE_LOCAL_SCRIPT_HOST;
     // 1. Key Generation
     //Initiate a key pair generation through the `/generate-keys` endpoint.
     function generateKeys() {
         const g_name = prompt("Input your key name");
-        fetch(backendURL + '/generate-keys', {
+        fetch(pythonBackendURL + '/generate-keys', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ const Encryption: React.FC = () => {
         //### 2. Public Key Retrieval
         //Retrieve the public key for a specific key pair name using the `/get-public-key` endpoint.
         const k_name = prompt("Input your key name");
-        fetch(backendURL + '/get-public-key', {
+        fetch(pythonBackendURL + '/get-public-key', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ const Encryption: React.FC = () => {
         //### 3. Message Encryption and Decryption
         //Encrypt and decrypt messages using the `/encrypt` and `/decrypt` endpoints, respectively.
         const plain_message = prompt("Input your message:");
-        fetch(backendURL + '/encrypt', {
+        fetch(pythonBackendURL + '/encrypt', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ const Encryption: React.FC = () => {
     function decryptMessage() {
         let encrypted_package = '';
         encrypted_package = prompt("Paste the encrypted package here:") || '';
-        fetch(backendURL + '/decrypt', {
+        fetch(pythonBackendURL + '/decrypt', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -75,7 +75,7 @@ const Encryption: React.FC = () => {
         //Use the ZKCS_Hash server to manage commitments and handle proof operations through the following endpoints:
         //#### Create Commitments
         //Initiate the creation of commitments with the `/create_commitments` endpoint.
-        fetch(backendURL + '/create_commitments', {
+        fetch(pythonBackendURL + '/create_commitments', {
             method: 'POST'
         })
         .then(response => response.json())
@@ -87,7 +87,7 @@ const Encryption: React.FC = () => {
         //Generate a cryptographic proof based on specified positions using the `/prover` endpoint.
         const positions = [0, 1, 2, 3]; // Example positions for the proof
         // or take user input??????
-        fetch(backendURL + '/prover', {
+        fetch(pythonBackendURL + '/prover', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ const Encryption: React.FC = () => {
         //const Y_selected = prompt("Input list of selected Y values with commas: (e.g. [1,2,3,4])");
         //console.log(JSON.stringify({ proof: proof, Y_selected: Y_selected.join(', ') }));
 
-        fetch(backendURL + '/verifier', {
+        fetch(pythonBackendURL + '/verifier', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
