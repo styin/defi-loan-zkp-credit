@@ -8,10 +8,8 @@ const PostRequest: React.FC = () => {
             <aside>
                 <SideBar />
             </aside>
-            <section className="flex-1 bg-gray-50 ml-64">
-                <div className="mt-10 justify-center items-center">
-                    <RequestForm />
-                </div>
+            <section className="flex-1 bg-gray-50 ml-64 pb-xxl">
+                <RequestForm />
             </section>
         </div>
     );
