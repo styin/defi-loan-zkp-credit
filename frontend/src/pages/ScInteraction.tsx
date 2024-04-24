@@ -10,7 +10,7 @@ const ScInteraction: React.FC = () => {
             <aside>
                 <SideBar />
             </aside>
-            <section className="flex-1 bg-gray-50">
+            <section className="flex-1 bg-gray-50 ml-64">
                 <div className="mt-10 justify-center items-center">
                     <ScButtons />
                 </div>

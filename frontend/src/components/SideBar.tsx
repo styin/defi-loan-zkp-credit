@@ -7,7 +7,7 @@ const SideBar = () => {
   const { wallet, hasProvider } = UseMetaMask();
 
   return (
-    <div className="w-64 left-0 top-0 h-screen flex flex-col justify-between border-e bg-white">
+    <div className="fixed w-64 left-0 top-0 h-screen flex flex-col justify-between border-e bg-white">
       <div className="sticky px-4 py-6 gap-6 top-0">
         {/* Top part of the Sidebar */}
         <div className="flex items-center justify-center gap-4">

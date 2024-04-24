@@ -10,7 +10,7 @@ const Login: React.FC = () => {
             <aside>
                 <SideBar />
             </aside>
-            <div className='flex-1'>
+            <div className='flex-1 bg-gray-50 ml-64'>
                 <LoginForm />
             </div>
         </div>
