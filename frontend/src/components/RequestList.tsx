@@ -1,12 +1,7 @@
 import React, { useEffect, useState }  from "react";
-import LoanRequestCard from "../components/LoanRequestCard";
+import LoanRequestCard from "./LoanRequestCard";
 import LoanRequestInterface from "../interfaces/loanRequestInterface";
-import ScrollableDiv from "../components/ScrollableDiv";
-
-/*
-TODO: get request list from backend
-cardData is currently hardcoded for testing
-*/
+import ScrollableDiv from "./ScrollableDiv";
 
 const RequestList: React.FC = () => {
     const [messages, setMessages] = useState<LoanRequestInterface[]>([]);
