@@ -6,7 +6,7 @@ import { Web3 } from "web3";
 
 const RequestForm: React.FC = () => {
   // Access the wallet address
-  const { wallet } = UseMetaMask();
+  const { wallet, hasProvider } = UseMetaMask();
 
   const [formData, setFormData] = useState({
     rsaPK: "",
@@ -17,6 +17,10 @@ const RequestForm: React.FC = () => {
     additionalNotes: "",
   });
 
+  // Instantiate Web3 from MetaMask provider
+  if (!hasProvider) {
+    console.log("No provider");
+  }
   const web3 = new Web3(window.ethereum);
 
   // sign the rsaPK
