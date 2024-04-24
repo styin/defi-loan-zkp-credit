@@ -10,12 +10,12 @@ import MainPage from '../pages/MainPage';
 import LoanRequest from '../pages/LoanRequest';
 import Message from '../pages/Message';
 import SendMessage from '../pages/SendMessage';
-import FetchMessage from '../pages/FetchMessage';
 import Placeholder from '../pages/Placeholder';
 import PostRequest from '../pages/PostRequest';
 import Encryption from '../pages/Encryption';
 import ScInteraction from '../pages/ScInteraction';
 import ViewRequest from '../pages/ViewRequest';
+import ViewMessage from '../pages/ViewMessage';
 
 const RouterConfig: React.FC = () => {
     return (
@@ -63,7 +63,7 @@ const RouterConfig: React.FC = () => {
 
                     {/* Pseudo-Subroute 3.2: Fetch Message */}
                     <Route path="/message/fetch" element={
-                        <AuthGuard> <FetchMessage /> </AuthGuard>
+                        <AuthGuard> <ViewMessage /> </AuthGuard>
                     }/>
 
                 {/* Route 4: Encryption */}

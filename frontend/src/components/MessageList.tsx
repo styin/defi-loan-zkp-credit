@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import EncryptedMessageCard from '../components/EncryptedMessageCard';
+import EncryptedMessageCard from './EncryptedMessageCard';
 import EncryptedMessageInterface from '../interfaces/encryptedMessageInterface';
-import ScrollableDiv from '../components/ScrollableDiv';
+import ScrollableDiv from './ScrollableDiv';
 
-const FetchMessage: React.FC = () => {
+const MessageList: React.FC = () => {
   const [messages, setMessages] = useState<EncryptedMessageInterface[]>([]);
   const handleFetch = () => {
     const public_key = prompt("Input your public key:");
@@ -38,4 +38,4 @@ const FetchMessage: React.FC = () => {
         );
     };
 
-export default FetchMessage;
+export default MessageList;
