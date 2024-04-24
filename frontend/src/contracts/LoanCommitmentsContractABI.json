@@ -65,6 +65,40 @@
 		"inputs": [
 			{
 				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "commitments",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "yi",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "lenderConfirmed",
+				"type": "bool"
+			},
+			{
+				"internalType": "address",
+				"name": "lender",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "borrower",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
 				"name": "identifier",
 				"type": "bytes32"
 			}
@@ -96,40 +130,6 @@
 			}
 		],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"name": "commitments",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "yi",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "lenderConfirmed",
-				"type": "bool"
-			},
-			{
-				"internalType": "address",
-				"name": "lender",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "borrower",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
