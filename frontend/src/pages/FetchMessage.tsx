@@ -13,7 +13,7 @@ const FetchMessage: React.FC = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ public_key }),
-    })  
+    })
       .then(response => response.json())
       .then(data => {
           const encryptedMessages: EncryptedMessageInterface[] = data as EncryptedMessageInterface[];
@@ -23,8 +23,8 @@ const FetchMessage: React.FC = () => {
           console.error('Error:', error);
       });
   };
-      
-    
+
+
       return (
         <div>
           <h1>Messages</h1>
@@ -39,4 +39,3 @@ const FetchMessage: React.FC = () => {
     };
 
 export default FetchMessage;
-

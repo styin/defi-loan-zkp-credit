@@ -10,7 +10,7 @@ cardData is currently hardcoded for testing
 
 const RequestList: React.FC = () => {
     const [messages, setMessages] = useState<LoanRequestInterface[]>([]);
-        
+
     useEffect(() => {
       // fetch data from the backend
     fetch(import.meta.env.VITE_BACKEND_HOST + '/api/get_requests')
@@ -23,7 +23,7 @@ const RequestList: React.FC = () => {
             console.error('Error:', error);
         });
     }, []);
-      
+
         return (
           <div>
             <h1>Request List</h1>
@@ -37,6 +37,3 @@ const RequestList: React.FC = () => {
       };
 
 export default RequestList;
-
-  
-  

@@ -143,8 +143,3 @@ const Encryption: React.FC = () => {
 };
 
 export default Encryption;
-
-
-
-
-

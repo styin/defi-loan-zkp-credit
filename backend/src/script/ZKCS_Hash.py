@@ -265,14 +265,14 @@ def create_commitments():
     try:
         with open('X.json', 'r') as x_file:
             X = json.load(x_file)
-        
+
         # Calculate commitments
         Y = [pow(g, x, p) for x in X]
-        
+
         # Save the commitments to Y.json
         with open('Y.json', 'w') as y_file:
             json.dump(Y, y_file)
-        
+
         return jsonify(Y)
     except FileNotFoundError:
         error_message = "File 'X.json' not found."
@@ -288,30 +288,30 @@ def create_commitments():
 def prover():
     try:
         positions = request.json['positions']
-        
+
         with open('X.json', 'r') as x_file:
             X = json.load(x_file)
-        
+
         # Extract the requested positions from X
         requested_X = [X[pos] for pos in positions]
-        
+
         # Generate Y_selected based on the requested X values
         Y_selected = [pow(g, x, p) for x in requested_X]
-        
+
         # Calculate the claim c
         c = sum(requested_X)
-        
+
         # Generate random numbers R and compute Rsum and set A
         R = [random.randint(1, p-1) for _ in requested_X]
         Rsum = sum(R)
         A = [pow(g, r, p) for r in R]
-        
+
         # Compute the challenge hash e
         e = hash_function(str(Rsum) + str(Y_selected) + str(c), p)
-        
+
         # Compute the response set S
         S = [(r + e * x) % p for r, x in zip(R, requested_X)]
-        
+
         # Generate proof.json
         proof = {
             'c': c,
@@ -319,10 +319,10 @@ def prover():
             'A': A,
             'S': S
         }
-        
+
         with open('proof.json', 'w') as proof_file:
             json.dump(proof, proof_file)
-        
+
         return jsonify(proof)
     except FileNotFoundError:
         error_message = "File 'X.json' not found."
@@ -342,10 +342,10 @@ def verifier():
     try:
         proof = json.loads(request.json['proof'])
         Y = request.json['Y_selected']
-        
+
         # Recalculate the challenge hash e'
         e_prime = hash_function(str(proof['Rsum']) + str(Y) + str(proof['c']), p)
-        
+
         # Verify the responses
         verification_passed = True
         for ai, si, yi in zip(proof['A'], proof['S'], Y):
@@ -354,13 +354,13 @@ def verifier():
             if left_hand_side != right_hand_side:
                 verification_passed = False
                 break
-        
+
         # Verify the claim c
         Rsum_plus_ec = (proof['Rsum'] + e_prime * proof['c']) % p
         sum_S = sum(proof['S']) % p
         if Rsum_plus_ec != sum_S:
             verification_passed = False
-        
+
         return jsonify({'verification_passed': verification_passed})
     except KeyError as e:
         error_message = f"Missing key in request JSON: {str(e)}"
