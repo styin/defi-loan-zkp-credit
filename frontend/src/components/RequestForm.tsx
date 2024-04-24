@@ -97,7 +97,7 @@ const RequestForm: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:hscreen lg:py-0">
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-24 lg:py-0">
       {/* Top of the form */}
       <a className="font-bold flex items-center mb-6 text-2xl text-gray-900">
         New request
