@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Message: React.FC = () => {
     return (
         <div>
-            <h1>Message Page</h1>
+            <h1>Deprecated Page | Message</h1>
             {/*loan request's homepage*/}
             <Link to="send">
                 <button>Send Messages</button>

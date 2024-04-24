@@ -129,7 +129,7 @@ const Encryption: React.FC = () => {
             <aside>
                 <SideBar />
             </aside>
-            <section className="flex-1 bg-gray-50">
+            <section className="flex-1 bg-gray-50 ml-64">
                 <button onClick={generateKeys}>Generate Key Pair</button>
                 <button onClick={retrievePublicKey}>Retrieve Public Key</button>
                 <button onClick={encryptMessage}>Encrypt Message</button>

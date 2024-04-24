@@ -54,6 +54,11 @@ const ScButtons: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [commitmentIdentifier, setCommitmentIdentifier] = useState("");
+  const [transactionHash, setTransactionHash] = useState("");
+  const [retrievalData, setRetrievalData] = useState("");
+  const [scInteractionMessage, setScInteractionMessage] = useState("");
+
   // Contract Functions
   function sc_CreateCommitment(lenderAddress: string, yi: string) {
     sc.methods
@@ -62,17 +67,33 @@ const ScButtons: React.FC = () => {
         yi
       )
       .send({ from: walletAddress })
-      .on("transactionHash", (hash) => {
-        console.log("tx hash: ", hash);
-      })
       .on("receipt", (receipt) => {
-        // TODO: handle retrieved identifier
-        console.log(
-          receipt?.events?.CommitmentCreated?.returnValues?.identifier
-        );
+        // Print receipt to console
+        console.log(receipt);
+
+        // Handle transaction hash
+        const transactionHash: unknown | undefined = receipt?.transactionHash;
+        if (transactionHash) {
+          const parsedTransactionHash: string = String(transactionHash);
+          console.log("tx_hash: " + transactionHash);
+          setTransactionHash(parsedTransactionHash);
+        } else {
+          console.error("[SC Create Commitment] Transaction hash not found");
+        }
+
+        // Handle contract identifier
+        const commitmentIdentifier: unknown | undefined = receipt?.events?.CommitmentCreated?.returnValues?.identifier;
+        if (commitmentIdentifier) {
+          const parsedContractIdentifier: string = String(commitmentIdentifier);
+          console.log("contract identifier: " + commitmentIdentifier);
+          setCommitmentIdentifier(parsedContractIdentifier);
+          setScInteractionMessage("✅ Commitment created successfully");
+        } else {
+          console.error("[SC Create Commitment] Contract identifier not found");
+        }
       })
       .on("error", (error) => {
-        console.log(error);
+        console.log("[SC Create Commitment] Error: " + error);
       });
   }
 
@@ -82,15 +103,28 @@ const ScButtons: React.FC = () => {
         identifier
       )
       .send({ from: walletAddress })
-      .on("transactionHash", (hash) => {
-        console.log("tx hash: ", hash);
-      })
       .on("receipt", (receipt) => {
+        // Print receipt to console
         console.log(receipt);
+
+        // Handle transaction hash
+        const transactionHash: unknown | undefined = receipt?.transactionHash;
+        if (transactionHash) {
+          const parsedTransactionHash: string = String(transactionHash);
+          console.log("tx_hash: " + transactionHash);
+          setTransactionHash(parsedTransactionHash);
+          setScInteractionMessage("✅ Commitment confirmed successfully");
+        } else {
+          console.error("[SC Confirm Commitment] Transaction hash not found");
+        }
+
+        // Handle contract identifier
+        console.log("contract identifier: " + identifier)
+        setCommitmentIdentifier(identifier);
       })
       .on("error", (error) => {
-        console.log(error);
-      })
+        console.log("[SC Confirm Commitment] Error: " + error);
+      });
   }
 
   function sc_getYiValuesByBorrowerAndIndices(borrowerAddress: string, indices: number[]) {
@@ -102,6 +136,9 @@ const ScButtons: React.FC = () => {
       .call({ from: walletAddress })
       .then((result) => {
         console.log(result);
+        const parsedResult : string = JSON.stringify(String(result), null, 2);
+        setRetrievalData(parsedResult);
+        setScInteractionMessage("✅ Yi values retrieved successfully");
       })
       .catch((error) => {
         console.log(error);
@@ -116,11 +153,15 @@ const ScButtons: React.FC = () => {
       .call({ from: walletAddress })
       .then((result) => {
         console.log(result);
+        const parsedResult = JSON.stringify(result, null, 2);
+        setRetrievalData(parsedResult);
+        setScInteractionMessage("✅ Lenders retrieved successfully");
       })
       .catch((error) => {
         console.log(error);
       })
   }
+
 
   // Form Data
   interface FormData {
@@ -148,18 +189,40 @@ const ScButtons: React.FC = () => {
     });
   };
 
+  const handleCopyToClipboard = (text : string) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        console.log("Text copied to clipboard:", text);
+      })
+      .catch((error) => {
+        console.error("Error copying text to clipboard:", error);
+      });
+  };
+
   const handleSubmitCreateCmt = (e: React.FormEvent) => {
     e.preventDefault();
+    setTransactionHash("");
+    setCommitmentIdentifier("");
+    setRetrievalData("");
+    setScInteractionMessage("");
     sc_CreateCommitment(formData.lenderAddress, formData.yi);
   };
 
   const handleSubmitConfirmCmt = (e: React.FormEvent) => {
     e.preventDefault();
+    setTransactionHash("");
+    setCommitmentIdentifier("");
+    setRetrievalData("");
+    setScInteractionMessage("");
     sc_ConfirmCommitment(formData.identifier);
   };
 
   const handleSubmitGetYiValues = (e: React.FormEvent) => {
     e.preventDefault();
+    setTransactionHash("");
+    setCommitmentIdentifier("");
+    setRetrievalData("");
+    setScInteractionMessage("");
     sc_getYiValuesByBorrowerAndIndices(
       formData.borrowerAddress,
       formData.interestedIndices
@@ -168,6 +231,10 @@ const ScButtons: React.FC = () => {
 
   const handleSubmitGetLenders = (e: React.FormEvent) => {
     e.preventDefault();
+    setTransactionHash("");
+    setCommitmentIdentifier("");
+    setRetrievalData("");
+    setScInteractionMessage("");
     sc_getLendersByBorrower(formData.borrowerAddress);
   };
 
@@ -178,25 +245,117 @@ const ScButtons: React.FC = () => {
         Smart Contract Interaction
       </a>
 
-      {/* Display Chain ID and Block Number */}
-      <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
-        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold leading-6 text-gray-600">
-              Chain ID:
+      {/* Information section */}
+      <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-xl xl:p-0">
+        <div className="flex flex-col gap-6 md:p-4">
+
+          {/* Display Chain ID */}
+          <label>
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              Chain ID
             </span>
             <span className="text-sm font-semibold leading-6 text-gray-900">
-              {chainId == 11155111? chainId + " (Connected to ETH Sepolia)" : chainId}
+              {chainId == 11155111? "✅" + chainId + " (Connected to ETH Sepolia)" : chainId}
             </span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold leading-6 text-gray-600">
-              Latest Block Number:
+          </label>
+          {/* Display latest block number */}
+          <label>
+            <span className="block text-sm font-semibold leading-6 text-gray-600">
+              Latest Block Number
             </span>
             <span className="text-sm font-semibold leading-6 text-gray-900">
-              {blockNumber}
+              {"🕔" + blockNumber}
             </span>
-          </div>
+          </label>
+          {/* conditional rendering: Tx_hash is available */}
+          {transactionHash && (
+            <label>
+              <span className="block text-sm font-semibold leading-6 text-gray-600">
+                Tx Hash
+              </span>
+              <div className="flex flex-row">
+                <a
+                  href={`https://sepolia.etherscan.io/tx/${transactionHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500"
+                >
+                  {transactionHash}
+                </a>
+                <button
+                  data-copy-to-clipboard-target="npm-install-copy-button"
+                  data-tooltip-target="tooltip-copy-npm-install-copy-button"
+                  className="flex-1 md:ml-2"
+                  onClick={() => handleCopyToClipboard(transactionHash)}
+                >
+                  <span id="default-icon">
+                    <svg
+                      className="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 18 20"
+                    >
+                      <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </label>
+          )}
+
+          {/* conditional rendering: Commitment Identifier is available */}
+          {commitmentIdentifier && (
+            <label>
+              <span className="block text-sm font-semibold leading-6 text-gray-600">
+                Commitment Identifier
+              </span>
+              <div className="flex flex-row">
+                <span className="text-sm font-semibold leading-6 text-gray-900">
+                  {commitmentIdentifier}
+                </span>
+                <button
+                  data-copy-to-clipboard-target="npm-install-copy-button"
+                  data-tooltip-target="tooltip-copy-npm-install-copy-button"
+                  className="flex-1 md:ml-2"
+                  onClick={() => handleCopyToClipboard(commitmentIdentifier)}
+                >
+                  <span id="default-icon">
+                    <svg
+                      className="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 18 20"
+                    >
+                      <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </label>
+          )}
+
+          {/* conditional rendering: Retrieval Data is available */}
+          {retrievalData && (
+            <label>
+              <span className="block text-sm font-semibold leading-6 text-gray-600">
+                Lenders / Yi Values
+              </span>
+              <span className="text-sm font-semibold leading-6 text-gray-900">
+                {retrievalData}
+              </span>
+            </label>
+          )}
+
+          {/* conditional rendering: Interaction Message is available */}
+          {scInteractionMessage && (
+            <label>
+              <span className="text-sm font-semibold leading-6 text-gray-900">
+                {scInteractionMessage}
+              </span>
+            </label>
+          )}
         </div>
       </div>
 
@@ -224,7 +383,7 @@ const ScButtons: React.FC = () => {
           {/* Yi */}
           <label>
             <span className="block text-sm font-semibold leading-6 text-gray-600">
-              <a className="text-red-600"> * </a> Yi:
+              <a className="text-red-600"> * </a> Loan Amount:
             </span>
             <input
               className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
@@ -232,7 +391,7 @@ const ScButtons: React.FC = () => {
               name="yi"
               value={formData.yi}
               onChange={handleChange}
-              placeholder="~"
+              placeholder="e.g. 3125 - This is the loan amount of the commitment to be created"
               required={true}
             />
           </label>
