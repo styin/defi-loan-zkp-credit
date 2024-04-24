@@ -383,7 +383,7 @@ const ScButtons: React.FC = () => {
           {/* Yi */}
           <label>
             <span className="block text-sm font-semibold leading-6 text-gray-600">
-              <a className="text-red-600"> * </a> Loan Amount:
+              <a className="text-red-600"> * </a> Encrypted Loan Amount:
             </span>
             <input
               className="formInput flex-2 block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs"
@@ -391,7 +391,7 @@ const ScButtons: React.FC = () => {
               name="yi"
               value={formData.yi}
               onChange={handleChange}
-              placeholder="e.g. 3125 - This is the loan amount of the commitment to be created"
+              placeholder="e.g. 3125 - This is the locally encrypted loan amount to be committed"
               required={true}
             />
           </label>
