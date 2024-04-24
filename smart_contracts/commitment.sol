@@ -35,9 +35,12 @@ contract LoanCommitmentContract {
     function createCommitment(address lender, uint256 yi) public returns (bytes32) {
         // Generate an identifier based on addresses and nonce
         bytes32 identifier = keccak256(abi.encodePacked(msg.sender, lender, nonce));
-        
+
         // Increment the nonce for the next identifier to be unique
         nonce++;
+
+        // Check that the sender and lender are not the same
+        require(msg.sender != lender, "Sender and Lender must not be the same");
 
         // Ensure the commitment does not already exist
         require(commitments[identifier].yi == 0, "Commitment already exists");
@@ -57,7 +60,6 @@ contract LoanCommitmentContract {
         borrowerToLenders[msg.sender].push(lender);
 
         emit CommitmentCreated(msg.sender, lender, yi, identifier);
-
 
         borrowerCommitmentIdentifiers[msg.sender].push(identifier);
 
@@ -82,24 +84,54 @@ contract LoanCommitmentContract {
     }
 
     function getYiValuesByBorrowerAndIndices(address borrower, uint256[] memory indices) public view returns (uint256[] memory) {
-            require(indices.length > 0, "Indices array cannot be empty");
+        require(indices.length > 0, "Indices array cannot be empty");
 
-            bytes32[] memory identifiers = borrowerCommitmentIdentifiers[borrower];
-            uint256[] memory yiValues = new uint256[](indices.length);
+        bytes32[] memory identifiers = borrowerCommitmentIdentifiers[borrower];
+        uint256[] memory yiValues = new uint256[](indices.length);
 
-            for (uint256 i = 0; i < indices.length; i++) {
-                uint256 index = indices[i];
-                require(index < identifiers.length, "Invalid index");
+        // Get the confirmed commitments
+        bytes32[] memory confirmedIdentifiers = new bytes32[](identifiers.length);
+        uint256 confirmedCount = 0;
 
-                Commitment storage commitment = commitments[identifiers[index]];
-                yiValues[i] = commitment.yi;
+        for (uint256 i = 0; i < identifiers.length; i++) {
+            Commitment storage commitment = commitments[identifiers[i]];
+            if (commitment.lenderConfirmed) {
+                confirmedIdentifiers[confirmedCount] = identifiers[i];
+                confirmedCount++;
             }
+        }
 
-            return yiValues;
+        // Obtain the yi values according to the provided indices
+        for (uint256 i = 0; i < indices.length; i++) {
+            uint256 index = indices[i];
+            require(index < confirmedCount, "Invalid index");
+
+            Commitment storage commitment = commitments[confirmedIdentifiers[index]];
+            yiValues[i] = commitment.yi;
+        }
+
+        return yiValues;
     }
 
-    // Retrieve an ordered list of lenders for a given borrower
     function getLendersByBorrower(address borrower) public view returns (address[] memory) {
-        return borrowerToLenders[borrower];
+        bytes32[] memory identifiers = borrowerCommitmentIdentifiers[borrower];
+        address[] memory lenders = new address[](identifiers.length);
+        uint256 confirmedCount = 0;
+
+        // Get the confirmed commitments and corresponding lenders
+        for (uint256 i = 0; i < identifiers.length; i++) {
+            Commitment storage commitment = commitments[identifiers[i]];
+            if (commitment.lenderConfirmed) {
+                lenders[confirmedCount] = commitment.lender;
+                confirmedCount++;
+            }
+        }
+
+        // Resize the lenders array to remove unused slots
+        assembly {
+            mstore(lenders, confirmedCount)
+        }
+
+        return lenders;
     }
 }
