@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import SideBar from "../components/SideBar";
 
 const Encryption: React.FC = () => {
+    const [returnedType, setReturnedType] = useState("");
+    const [returnedValue, setReturnedValue] = useState("");
+
+    // Your existing functions here
+    function updateReturnedType(type: string) {
+        setReturnedType(type);
+    }
+    // Function to update the state with the returned value
+    function updateReturnedValue(value: string) {
+        setReturnedValue(value);
+    }
     const pythonBackendURL = import.meta.env.VITE_LOCAL_SCRIPT_HOST;
     // 1. Key Generation
     //Initiate a key pair generation through the `/generate-keys` endpoint.
@@ -15,7 +26,11 @@ const Encryption: React.FC = () => {
         body: JSON.stringify({ pair_name: g_name })
         })
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(() => {
+            updateReturnedType("Key Pair");
+            // actual key pair is not returned, just a message
+            updateReturnedValue("Please check your local directory");
+        });
     }
 
     function retrievePublicKey() {
@@ -30,7 +45,10 @@ const Encryption: React.FC = () => {
         body: JSON.stringify({ pair_name: k_name })
         })
         .then(response => response.json())
-        .then(data => console.log("Public Key Response:", data));
+        .then(data => {
+            updateReturnedType("Public Key");
+            updateReturnedValue(data.public_key);
+        });
     }
 
     function encryptMessage() {
@@ -49,7 +67,11 @@ const Encryption: React.FC = () => {
         })
         })
         .then(response => response.json())
-        .then(data => console.log('Encryption package:', data));
+        .then(data => {
+            updateReturnedType("Encrypted Message Package");
+            updateReturnedValue(JSON.stringify(data));
+            console.log("Encrypted message:", data);
+        });
     }
 
     function decryptMessage() {
@@ -67,7 +89,11 @@ const Encryption: React.FC = () => {
         })
         })
         .then(response => response.json())
-        .then(data => console.log('Decrypted message:', data.decrypted_message));
+        .then(data => {
+            updateReturnedType("Decrypted Message");
+            updateReturnedValue(data.decrypted_message);
+            console.log('Decrypted message:', data.decrypted_message);
+        });
     }
 
     function create_commitments() {
@@ -79,7 +105,11 @@ const Encryption: React.FC = () => {
             method: 'POST'
         })
         .then(response => response.json())
-        .then(data => console.log('Commitments:', data));
+        .then(data => {
+            updateReturnedType("Commitment");
+            updateReturnedValue(data);
+            console.log('Commitments:', data);
+        });
     }
 
     function generateProof() {
@@ -95,7 +125,11 @@ const Encryption: React.FC = () => {
         body: JSON.stringify({ positions: positions })
         })
         .then(response => response.json())
-        .then(data => console.log('Proof:', data));
+        .then(data => {
+            updateReturnedType("Proof");
+            updateReturnedValue(data.proof.toString());
+            console.log('Proof:', data);
+        });
     }
 
     function verifyProof() {
@@ -118,18 +152,22 @@ const Encryption: React.FC = () => {
         .then(response => response.json())
         .then(data => {
         if (data.verification_passed) {
+            updateReturnedType("Verification Result");
+            updateReturnedValue(data.verification_passed);
             console.log("Proof verified successfully.");
         } else {
+            updateReturnedType("Verification Result");
+            updateReturnedValue(data.error);
             console.log("Proof verification failed.");
         }
         });
     }
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-24 lg:py-0 gap-10">
             <aside>
                 <SideBar />
             </aside>
-            <section className="flex-1 bg-gray-50 ml-64">
+            <section className="flex flex-col gap-6 md:p-4">
                 <button onClick={generateKeys}>Generate Key Pair</button>
                 <button onClick={retrievePublicKey}>Retrieve Public Key</button>
                 <button onClick={encryptMessage}>Encrypt Message</button>
@@ -137,6 +175,14 @@ const Encryption: React.FC = () => {
                 <button onClick={create_commitments}>Create Commitments</button>
                 <button onClick={generateProof}>Generate Proof</button>
                 <button onClick={verifyProof}>Verify Proof</button>
+            </section>
+            <section className="flex flex-col gap-6 md:p-4">
+                {/* Label to display the returned type */}
+                <label htmlFor="returned-type">Returned Type: {returnedType}</label>
+                {/* Text field to display the returned value */}
+                <label htmlFor="returned-value">Returned Value:
+                    <input type="text" name="returns" value={returnedValue} readOnly className="w-96 h-64 text-top"/>
+                </label>
             </section>
         </div>
     );
