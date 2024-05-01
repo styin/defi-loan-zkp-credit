@@ -57,12 +57,12 @@ const MessageList: React.FC = () => {
           <a className="font-GoogleSans font-bold flex items-center mb-6 text-2xl text-gray-900">
             Encrypted Inbox 📩
           </a>
-          <button className="mb-4 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-xl text-sm px-5 py-2.5 text-center me-2"
-
-                    onClick={handleFetch}
-                  >
-                    fetch
-                  </button>
+          <button
+            className="mb-4 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-xl text-sm px-5 py-2.5 text-center me-2"
+            onClick={handleFetch}
+          >
+            fetch
+          </button>
           {copySuccess && (
             <div
               className="flex items-center p-4 mb-4 text-sm text-green-800 rounded-xl bg-green-50 dark:bg-gray-800 dark:text-green-400"
@@ -131,7 +131,9 @@ const MessageList: React.FC = () => {
                   <td className="w-screen px-6 py-4">
                     <button
                       className="float-left mr-4"
-                      onClick={() => handleCopyToClipboard(message.encryptionPackage)}
+                      onClick={() =>
+                        handleCopyToClipboard(message.encryptionPackage)
+                      }
                     >
                       <span id="default-icon">
                         <svg
@@ -145,7 +147,7 @@ const MessageList: React.FC = () => {
                         </svg>
                       </span>
                     </button>
-                  <span>
+                    <span>
                       {message.encryptionPackage.length > 250
                         ? message.encryptionPackage.substring(0, 250) + "..."
                         : message.encryptionPackage}
@@ -156,7 +158,10 @@ const MessageList: React.FC = () => {
               {/* placeholders if no messages yet */}
               {messages.length === 0 && [
                 <tr>
-                  <td className="px-6 py-4 text-gray-900 animate-pulse border-b" colSpan={2}>
+                  <td
+                    className="px-6 py-4 text-gray-900 animate-pulse border-b"
+                    colSpan={2}
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="h-2.5 bg-gray-300 rounded-full w-24 mb-2.5"></div>
@@ -167,7 +172,10 @@ const MessageList: React.FC = () => {
                   </td>
                 </tr>,
                 <tr>
-                  <td className="px-6 py-4 text-gray-900 animate-pulse border-b" colSpan={2}>
+                  <td
+                    className="px-6 py-4 text-gray-900 animate-pulse border-b"
+                    colSpan={2}
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="h-2.5 bg-gray-300 rounded-full w-24 mb-2.5"></div>
@@ -178,7 +186,10 @@ const MessageList: React.FC = () => {
                   </td>
                 </tr>,
                 <tr>
-                  <td className="px-6 py-4 text-gray-900 animate-pulse border-b" colSpan={2}>
+                  <td
+                    className="px-6 py-4 text-gray-900 animate-pulse border-b"
+                    colSpan={2}
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="h-2.5 bg-gray-300 rounded-full w-24 mb-2.5"></div>
@@ -189,7 +200,10 @@ const MessageList: React.FC = () => {
                   </td>
                 </tr>,
                 <tr>
-                  <td className="px-6 py-4 text-gray-900 animate-pulse border-b" colSpan={2}>
+                  <td
+                    className="px-6 py-4 text-gray-900 animate-pulse border-b"
+                    colSpan={2}
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="h-2.5 bg-gray-300 rounded-full w-24 mb-2.5"></div>
@@ -200,7 +214,10 @@ const MessageList: React.FC = () => {
                   </td>
                 </tr>,
                 <tr>
-                  <td className="px-6 py-4 text-gray-900 animate-pulse" colSpan={2}>
+                  <td
+                    className="px-6 py-4 text-gray-900 animate-pulse"
+                    colSpan={2}
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="h-2.5 bg-gray-300 rounded-full w-24 mb-2.5"></div>
