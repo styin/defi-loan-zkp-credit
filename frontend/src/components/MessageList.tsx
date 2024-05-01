@@ -42,14 +42,6 @@ const MessageList: React.FC = () => {
 
   return (
     <div>
-      {/* <h1>Messages</h1>
-          <button onClick={handleFetch}>Fetch</button>
-          <ScrollableDiv>
-                {messages.map((message, index) => (
-                    <EncryptedMessageCard key={index} encryptedMessage={message} />
-                ))}
-            </ScrollableDiv> */}
-
       <div className="flex flex-col items-center justify-center px-12 mx-auto mt-24">
         {/* white card */}
         <div className="bg-white rounded-3xl shadow xl:p-10 overflow-x-auto">
@@ -63,6 +55,9 @@ const MessageList: React.FC = () => {
           >
             fetch
           </button>
+          <span className="ml-4 text-sm text-gray-500">
+            Press on "fetch" to retrieve your messages. Note that if the sender opted for encrypted messaging, the messages are encrypted for your privacy. You may find it useful to copy the encrypted packages to decrypt them.
+          </span>
           {copySuccess && (
             <div
               className="flex items-center p-4 mb-4 text-sm text-green-800 rounded-xl bg-green-50 dark:bg-gray-800 dark:text-green-400"
