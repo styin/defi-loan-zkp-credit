@@ -9,7 +9,7 @@ const ViewRequest: React.FC = () => {
             <aside>
                 <SideBar />
             </aside>
-            <section className="flex-1 bg-gray-50 ml-64 pb-xxxl">
+            <section className="flex-1 bg-gray-50 ml-64 pb-xxl">
                 <RequestList />
             </section>
         </div>
