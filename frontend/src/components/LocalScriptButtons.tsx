@@ -69,7 +69,7 @@ const Encryption: React.FC = () => {
       .then(() => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+          behavior: 'smooth'
         });
       })
   };
@@ -100,7 +100,7 @@ const Encryption: React.FC = () => {
       .then(() => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+          behavior: 'smooth'
         });
       })
   };
@@ -129,7 +129,7 @@ const Encryption: React.FC = () => {
       .then(() => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+          behavior: 'smooth'
         });
       })
   };
@@ -152,7 +152,7 @@ const Encryption: React.FC = () => {
       .then(() => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+          behavior: 'smooth'
         });
       })
   };
@@ -173,12 +173,13 @@ const Encryption: React.FC = () => {
       .then((data) => {
         updateReturnedType("Proof");
         updateReturnedValue(JSON.stringify(data));
+        updateReturnedValue(BigInt(data.A[0]).toString());
         console.log("Proof:", data);
       })
       .then(() => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+          behavior: 'smooth'
         });
       })
   };
@@ -218,7 +219,7 @@ const Encryption: React.FC = () => {
       .then(() => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+          behavior: 'smooth'
         });
       })
   };
