@@ -228,7 +228,7 @@ const Encryption: React.FC = () => {
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-24 lg:py-0 gap-10">
         {/* Top of the form */}
         <a className="font-bold flex items-center text-2xl text-gray-900">
-          Encryption Related Functions
+          Local Script Interaction
         </a>
 
         {/* Information section */}
