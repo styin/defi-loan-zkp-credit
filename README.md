@@ -6,6 +6,10 @@ This project is a full-stack implementation of a proposed protocol enabling dece
 
 - and in partial fulfillment of the requirements for CPEG 4901 in the Computer Engineering Program Office, The Hong Kong University of Science and Technology.
 
+<img src="./assets/loan_requests_ss.png" alt="ZeroLoan Logo" width="1000">
+<i>Figure 1: Screen Capture of the Loan Requests List Page of the Demo Web Application</i>
+
+
 
 ### Design Overview
 ---
