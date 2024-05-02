@@ -118,7 +118,7 @@ const SideBar = () => {
           {/* Encryption Section */}
           <li>
             <a
-              href="/encryption"
+              href="/script"
               className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             >
               Encryption
