@@ -12,7 +12,7 @@ import Message from '../pages/Message';
 import SendMessage from '../pages/SendMessage';
 import Placeholder from '../pages/Placeholder';
 import PostRequest from '../pages/PostRequest';
-import Encryption from '../pages/Encryption';
+import LocalScriptInteraction from '../pages/LocalScriptInteraction';
 import ScInteraction from '../pages/ScInteraction';
 import ViewRequest from '../pages/ViewRequest';
 import ViewMessage from '../pages/ViewMessage';
@@ -66,9 +66,9 @@ const RouterConfig: React.FC = () => {
                         <AuthGuard> <ViewMessage /> </AuthGuard>
                     }/>
 
-                {/* Route 4: Encryption */}
-                <Route path="/encryption" element={
-                    <AuthGuard> <Encryption /> </AuthGuard>
+                {/* Route 4: Local Script Interaction */}
+                <Route path="/script" element={
+                    <AuthGuard> <LocalScriptInteraction /> </AuthGuard>
                 }/>
 
                 {/* Route 5: Smart Contract */}

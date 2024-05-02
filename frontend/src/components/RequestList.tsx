@@ -26,7 +26,7 @@ const RequestList: React.FC = () => {
         console.log("Text copied to clipboard:", text);
         setCopySuccess(true);
         setTimeout(() => {
-           setCopySuccess(false);
+          setCopySuccess(false);
         }, 2000);
       })
       .catch((error) => {
@@ -43,16 +43,25 @@ const RequestList: React.FC = () => {
           Public Loan Requests 🗒️
         </a>
         {copySuccess && (
-        <div className="flex items-center p-4 mb-4 text-sm text-green-800 rounded-xl bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-        <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-        </svg>
-        <span className="sr-only">Info</span>
-        <div>
-          <span className="font-medium">Copied to clipboard!</span>
-        </div>
-      </div>
-      )}
+          <div
+            className="flex items-center p-4 mb-4 text-sm text-green-800 rounded-xl bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            role="alert"
+          >
+            <svg
+              className="flex-shrink-0 inline w-4 h-4 me-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span className="sr-only">Info</span>
+            <div>
+              <span className="font-medium">Copied to clipboard!</span>
+            </div>
+          </div>
+        )}
         {/* table */}
         <table className="text-xs text-left rtl:text-right">
           <thead className="max-h-1 text-sm text-gray-900 border-b-2 border-orange-700">
@@ -95,7 +104,7 @@ const RequestList: React.FC = () => {
                   </span>
                   <button
                     className="float-right"
-                    onClick={() => handleCopyToClipboard(request.rsaPK)}
+                    onClick={() => handleCopyToClipboard(request.walletAddress)}
                   >
                     <span id="default-icon">
                       <svg
@@ -134,7 +143,7 @@ const RequestList: React.FC = () => {
                   </button>
                 </td>
                 <td className="px-6 py-4 bg-gray-100">
-                <button
+                  <button
                     className="ml-1"
                     onClick={() => handleCopyToClipboard(request.signedRSAPK)}
                   >
@@ -161,6 +170,19 @@ const RequestList: React.FC = () => {
                 </td>
               </tr>
             ))}
+            <tr className="border-t-2">
+              <td className="px-10 py-[2px] rounded-bl-xl text-gray-100 bg-gray-100">
+                .
+              </td>
+              <td className="px-10 py-[2px] text-white">.</td>
+              <td className="px-10 py-[2px] text-gray-100 bg-gray-100">.</td>
+              <td className="px-10 py-[2px] text-white">.</td>
+              <td className="px-10 py-[2px] text-gray-100 bg-gray-100">.</td>
+              <td className="px-10 py-[2px] text-white">.</td>
+              <td className="px-10 py-[2px] rounded-br-xl text-gray-100 bg-gray-100">
+                .
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
