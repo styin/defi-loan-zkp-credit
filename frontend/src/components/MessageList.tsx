@@ -56,7 +56,7 @@ const MessageList: React.FC = () => {
             fetch
           </button>
           <span className="ml-4 text-sm text-gray-500">
-            Press on "fetch" to retrieve your messages. Note that if the sender opted for encrypted messaging, the messages are encrypted for your privacy. You may find it useful to copy the encrypted packages to decrypt them.
+            Press on "fetch" to retrieve your messages. Note that if the sender opted for encrypted messaging, the messages are encrypted for your privacy.
           </span>
           {copySuccess && (
             <div
