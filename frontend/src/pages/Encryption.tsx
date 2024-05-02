@@ -240,7 +240,7 @@ const Encryption: React.FC = () => {
                   name="keyName"
                   value={keyName}
                   onChange={(e) => setKeyName(e.target.value)}
-                  placeholder="e.g. myKey - If the file is name myKey_public_key.pem"
+                  placeholder="e.g. myKey - If the key file name is myKey_public_key.pem"
                   required={true}
                 />
               </label>
@@ -270,7 +270,7 @@ const Encryption: React.FC = () => {
                   name="publicKeyName"
                   value={publicKeyName}
                   onChange={(e) => setPublicKeyName(e.target.value)}
-                  placeholder="e.g. myKey - If the file is name myKey_public_key.pem"
+                  placeholder="e.g. myKey - If the key file name is myKey_public_key.pem"
                   required={true}
                 />
               </label>
@@ -331,7 +331,7 @@ const Encryption: React.FC = () => {
                   name="messageToDecrypt"
                   value={messageToDecrypt}
                   onChange={(e) => setMessageToDecrypt(e.target.value)}
-                  placeholder="e.g. "
+                  placeholder="input the full encryption package to be decrypted"
                   required={true}
                 />
               </label>
@@ -352,14 +352,14 @@ const Encryption: React.FC = () => {
             <div className="flex flex-col gap-6 md:p-4">
               <label>
                 <span className="block text-sm font-semibold leading-6 text-gray-600">
-                  <a className="text-red-600"> * </a> Create Commitments:
+                  <a className="text-red-600"> * </a> Create Commitment:
                 </span>
               </label>
               <button
                 className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 type="submit"
               >
-                Create Commitments
+                Create Commitment
               </button>
             </div>
           </form>
@@ -401,7 +401,7 @@ const Encryption: React.FC = () => {
                   name="proofPackage"
                   value={proofPackage}
                   onChange={(e) => setProofPackage(e.target.value)}
-                  placeholder="e.g."
+                  placeholder="input the full proof package to be verified"
                   required={true}
                 />
               </label>
