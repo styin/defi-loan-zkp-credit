@@ -145,9 +145,14 @@ const Encryption: React.FC = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        if (data.error) {
+          updateReturnedType("Commitments");
+          updateReturnedValue(data.message);
+        } else {
         updateReturnedType("Commitments");
-        updateReturnedValue(data);
+        updateReturnedValue("Y.json has been updated");
         console.log("Commitments:", data);
+        }
       })
       .then(() => {
         window.scrollTo({
@@ -172,8 +177,7 @@ const Encryption: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         updateReturnedType("Proof");
-        updateReturnedValue(JSON.stringify(data));
-        updateReturnedValue(BigInt(data.A[0]).toString());
+        updateReturnedValue("Please check your local directory for the proof file");
         console.log("Proof:", data);
       })
       .then(() => {
@@ -206,12 +210,12 @@ const Encryption: React.FC = () => {
       .then((data) => {
         if (data.verification_passed) {
           updateReturnedType("Verification Result");
-          updateReturnedValue(data.verification_passed);
+          updateReturnedValue("The proof is valid");
           setProofPackage("");
           console.log("Proof verified successfully.");
         } else {
           updateReturnedType("Verification Result");
-          updateReturnedValue(data.error);
+          updateReturnedValue("The proof is invalid");
           setProofPackage("");
           console.log("Proof verification failed.");
         }
