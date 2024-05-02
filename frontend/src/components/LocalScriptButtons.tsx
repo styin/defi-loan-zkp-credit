@@ -38,7 +38,13 @@ const Encryption: React.FC = () => {
         updateReturnedValue("Please check your local directory");
         setKeyName("");
         console.log("Key pair generated successfully!");
-      });
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+        });
+      })
   };
 
   const handleRetrievePublicKey = (e: React.FormEvent) => {
@@ -59,7 +65,13 @@ const Encryption: React.FC = () => {
         updateReturnedValue(data.public_key);
         setPublicKeyName("");
         console.log("Public key retrieved successfully:", data.public_key);
-      });
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+        });
+      })
   };
 
   const handleEncryptMessage = (e: React.FormEvent) => {
@@ -84,7 +96,13 @@ const Encryption: React.FC = () => {
         updateReturnedValue(JSON.stringify(data));
         setMessage("");
         console.log("Encrypted message:", data);
-      });
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+        });
+      })
   };
 
   const handleDecryptMessage = (e: React.FormEvent) => {
@@ -107,7 +125,13 @@ const Encryption: React.FC = () => {
         updateReturnedValue(data.decrypted_message);
         setMessageToDecrypt("");
         console.log("Decrypted message:", data.decrypted_message);
-      });
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+        });
+      })
   };
 
   const handleCreateCommitments = (e: React.FormEvent) => {
@@ -124,7 +148,13 @@ const Encryption: React.FC = () => {
         updateReturnedType("Commitments");
         updateReturnedValue(data);
         console.log("Commitments:", data);
-      });
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+        });
+      })
   };
 
   const handleGenerateProof = (e: React.FormEvent) => {
@@ -144,7 +174,13 @@ const Encryption: React.FC = () => {
         updateReturnedType("Proof");
         updateReturnedValue(JSON.stringify(data));
         console.log("Proof:", data);
-      });
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+        });
+      })
   };
 
   const handleVerifyProof = (e: React.FormEvent) => {
@@ -178,7 +214,13 @@ const Encryption: React.FC = () => {
           setProofPackage("");
           console.log("Proof verification failed.");
         }
-      });
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Optional: Adds smooth scrolling animation
+        });
+      })
   };
   return (
     <div>
