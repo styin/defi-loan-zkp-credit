@@ -166,7 +166,8 @@ const Encryption: React.FC = () => {
     //#### Generate Proof
     //Generate a cryptographic proof based on specified positions using the `/prover` endpoint.
     e.preventDefault();
-    const positions = [0, 1, 2, 3]; // Example positions for the proof
+    const positions = [0, 1, 2, 4]; // Example positions for the proof
+    //const positions = [0, 1, 2, 3];
     fetch(pythonBackendURL + "/prover", {
       method: "POST",
       headers: {
@@ -193,7 +194,8 @@ const Encryption: React.FC = () => {
     //#### Verify Proof
     //Verify a cryptographic proof by providing the proof and the selected Y values to the `/verifier` endpoint.
     //const proof = {}; // JSON object representing the proof
-    const Y_selected = [125, 5, 625, 5]; // Array of selected Y values
+    //const Y_selected = [125, 5, 625, 5]; // Array of selected Y values
+    const positions = [0, 1, 2, 4]; // Example positions for the proof
     //let Y_selected = [];
     const proof = proofPackage;
     //const Y_selected = prompt("Input list of selected Y values with commas: (e.g. [1,2,3,4])");
@@ -204,7 +206,8 @@ const Encryption: React.FC = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ proof: proof, Y_selected: Y_selected }),
+      body: JSON.stringify({ proof: proof, positions: positions }),
+      //body: JSON.stringify({ proof: proof, Y_selected: Y_selected }),
     })
       .then((response) => response.json())
       .then((data) => {
