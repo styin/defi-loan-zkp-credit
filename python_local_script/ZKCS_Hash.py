@@ -340,15 +340,17 @@ def prover():
 @app.route('/verifier', methods=['POST'])
 def verifier():
     try:
-        proof = json.loads(request.json['proof'])
-        Y = request.json['Y_selected']
-
+        proof = json.loads(request.json['proof'])        
+        positions = request.json['positions']
+        with open('Y.json', 'r') as y_file:
+            Y = json.load(y_file)
+        Y_selected = [Y[pos] for pos in positions]
         # Recalculate the challenge hash e'
-        e_prime = hash_function(str(proof['Rsum']) + str(Y) + str(proof['c']), p)
+        e_prime = hash_function(str(proof['Rsum']) + str(Y_selected) + str(proof['c']), p)
 
         # Verify the responses
         verification_passed = True
-        for ai, si, yi in zip(proof['A'], proof['S'], Y):
+        for ai, si, yi in zip(proof['A'], proof['S'], Y_selected):
             left_hand_side = pow(g, si, p)
             right_hand_side = (ai * pow(yi, e_prime, p)) % p
             if left_hand_side != right_hand_side:

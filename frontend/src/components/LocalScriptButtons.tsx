@@ -145,9 +145,14 @@ const Encryption: React.FC = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        if (data.error) {
+          updateReturnedType("Commitments");
+          updateReturnedValue(data.message);
+        } else {
         updateReturnedType("Commitments");
-        updateReturnedValue(data);
+        updateReturnedValue("Y.json has been updated");
         console.log("Commitments:", data);
+        }
       })
       .then(() => {
         window.scrollTo({
@@ -161,7 +166,8 @@ const Encryption: React.FC = () => {
     //#### Generate Proof
     //Generate a cryptographic proof based on specified positions using the `/prover` endpoint.
     e.preventDefault();
-    const positions = [0, 1, 2, 3]; // Example positions for the proof
+    const positions = [0, 1, 2, 4]; // Example positions for the proof
+    //const positions = [0, 1, 2, 3];
     fetch(pythonBackendURL + "/prover", {
       method: "POST",
       headers: {
@@ -172,8 +178,7 @@ const Encryption: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         updateReturnedType("Proof");
-        updateReturnedValue(JSON.stringify(data));
-        updateReturnedValue(BigInt(data.A[0]).toString());
+        updateReturnedValue("Please check your local directory for the proof file");
         console.log("Proof:", data);
       })
       .then(() => {
@@ -189,7 +194,8 @@ const Encryption: React.FC = () => {
     //#### Verify Proof
     //Verify a cryptographic proof by providing the proof and the selected Y values to the `/verifier` endpoint.
     //const proof = {}; // JSON object representing the proof
-    const Y_selected = [125, 5, 625, 5]; // Array of selected Y values
+    //const Y_selected = [125, 5, 625, 5]; // Array of selected Y values
+    const positions = [0, 1, 2, 4]; // Example positions for the proof
     //let Y_selected = [];
     const proof = proofPackage;
     //const Y_selected = prompt("Input list of selected Y values with commas: (e.g. [1,2,3,4])");
@@ -200,18 +206,19 @@ const Encryption: React.FC = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ proof: proof, Y_selected: Y_selected }),
+      body: JSON.stringify({ proof: proof, positions: positions }),
+      //body: JSON.stringify({ proof: proof, Y_selected: Y_selected }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.verification_passed) {
           updateReturnedType("Verification Result");
-          updateReturnedValue(data.verification_passed);
+          updateReturnedValue("The proof is valid");
           setProofPackage("");
           console.log("Proof verified successfully.");
         } else {
           updateReturnedType("Verification Result");
-          updateReturnedValue(data.error);
+          updateReturnedValue("The proof is invalid");
           setProofPackage("");
           console.log("Proof verification failed.");
         }
